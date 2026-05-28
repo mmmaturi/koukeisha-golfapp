@@ -1044,6 +1044,27 @@ function fmtDateShort(iso) {
 function memberName(id) { return (state.members.find(m=>m.id===id) || {name:'?'}).name; }
 function memberInitial(id) { return (state.members.find(m=>m.id===id) || {initial:'?'}).initial; }
 function roundParticipants(round) { return Object.keys(round.scores); }
+
+// Normalize a score record: ensure holes (18), out, in, total are all consistent
+function normalizeScore(s) {
+  const holes = Array.isArray(s.holes) ? s.holes.slice(0,18).map(n => Number(n)||0) : Array(18).fill(0);
+  while (holes.length < 18) holes.push(0);
+  const computedOut = holes.slice(0,9).reduce((a,b)=>a+b,0);
+  const computedIn = holes.slice(9,18).reduce((a,b)=>a+b,0);
+  const out = (s.out !== undefined && s.out !== null && s.out !== 0) ? Number(s.out) : computedOut;
+  const inS = (s.in !== undefined && s.in !== null && s.in !== 0) ? Number(s.in) : computedIn;
+  const total = (s.total !== undefined && s.total !== null && s.total !== 0) ? Number(s.total) : (out + inS);
+  return { holes, out, in: inS, total };
+}
+
+// Check whether a score record is in "OUT/IN totals only" mode
+function isOutInOnly(s) {
+  if (!s || !Array.isArray(s.holes)) return false;
+  const anyHole = s.holes.some(h => Number(h) > 0);
+  const hasOutIn = (s.out > 0 || s.in > 0 || s.total > 0);
+  return !anyHole && hasOutIn;
+}
+
 function bestOfRound(round) {
   // returns array of tied best entries: [[pid, scoreObj], ...]
   const scores = Object.entries(round.scores);
@@ -1410,30 +1431,42 @@ function renderDetail() {
   const bestArr = bestOfRound(r);
   const players = roundParticipants(r);
 
-  const scorecard = `
-    <div class="scorecard-wrap">
-      <table class="scorecard">
-        <thead>
-          <tr><th>HOLE</th>${Array.from({length:9},(_,i)=>`<th>${i+1}</th>`).join('')}<th>OUT</th>${Array.from({length:9},(_,i)=>`<th>${i+10}</th>`).join('')}<th>IN</th><th>計</th></tr>
-        </thead>
-        <tbody>
-          ${players.map(pid => {
-            const sc = r.scores[pid];
-            const out = sc.holes.slice(0,9).reduce((a,b)=>a+b,0);
-            const inS = sc.holes.slice(9,18).reduce((a,b)=>a+b,0);
-            return `<tr>
+  // Determine if this round is in OUT/IN-only mode (any player with no detailed holes)
+  const normalizedScores = players.map(pid => ({ pid, sc: normalizeScore(r.scores[pid]) }));
+  const allOutInOnly = normalizedScores.length > 0 && normalizedScores.every(({sc}) => isOutInOnly(sc));
+
+  const scorecard = allOutInOnly
+    ? `<div class="scorecard-wrap">
+        <table class="scorecard">
+          <thead><tr><th>名前</th><th>OUT</th><th>IN</th><th>計</th></tr></thead>
+          <tbody>
+            ${normalizedScores.map(({pid, sc}) => `<tr>
               <td>${memberName(pid)}</td>
-              ${sc.holes.slice(0,9).map(h=>`<td>${h}</td>`).join('')}
-              <td class="total-cell">${out}</td>
-              ${sc.holes.slice(9,18).map(h=>`<td>${h}</td>`).join('')}
-              <td class="total-cell">${inS}</td>
+              <td class="total-cell">${sc.out||'-'}</td>
+              <td class="total-cell">${sc.in||'-'}</td>
+              <td class="total-cell">${sc.total||'-'}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+        <div class="help-text" style="text-align:center; padding: 8px;">このラウンドはOUT/IN合計のみの記録です</div>
+      </div>`
+    : `<div class="scorecard-wrap">
+        <table class="scorecard">
+          <thead>
+            <tr><th>HOLE</th>${Array.from({length:9},(_,i)=>`<th>${i+1}</th>`).join('')}<th>OUT</th>${Array.from({length:9},(_,i)=>`<th>${i+10}</th>`).join('')}<th>IN</th><th>計</th></tr>
+          </thead>
+          <tbody>
+            ${normalizedScores.map(({pid, sc}) => `<tr>
+              <td>${memberName(pid)}</td>
+              ${sc.holes.slice(0,9).map(h=>`<td>${h||'-'}</td>`).join('')}
+              <td class="total-cell">${sc.out}</td>
+              ${sc.holes.slice(9,18).map(h=>`<td>${h||'-'}</td>`).join('')}
+              <td class="total-cell">${sc.in}</td>
               <td class="total-cell">${sc.total}</td>
-            </tr>`;
-          }).join('')}
-        </tbody>
-      </table>
-    </div>
-  `;
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>`;
 
   const photosHTML = r.photos.length ? r.photos.map(p => `
     <div class="detail-photo" style="${(p.url||p.dataUrl)?`background-image:url(${p.url||p.dataUrl})`:''}">
@@ -1488,6 +1521,9 @@ let editingRoundId = null;
 function initDraft(existingRound = null) {
   if (existingRound) {
     editingRoundId = existingRound.id;
+    // detect OUT/IN-only mode from existing data
+    const scoresEntries = Object.values(existingRound.scores || {});
+    const outInOnly = scoresEntries.length > 0 && scoresEntries.every(isOutInOnly);
     draftRound = {
       id: existingRound.id,
       date: existingRound.date,
@@ -1497,7 +1533,12 @@ function initDraft(existingRound = null) {
       photos: existingRound.photos.map(p => ({...p})),
       comments: existingRound.comments.map(c => ({...c})),
       selectedMembers: Object.keys(existingRound.scores),
+      outInOnly,
     };
+    // ensure normalized shape
+    Object.keys(draftRound.scores).forEach(mid => {
+      draftRound.scores[mid] = normalizeScore(draftRound.scores[mid]);
+    });
   } else {
     editingRoundId = null;
     draftRound = {
@@ -1509,8 +1550,9 @@ function initDraft(existingRound = null) {
       photos: [],
       comments: [],
       selectedMembers: [state.me],
+      outInOnly: false,
     };
-    draftRound.scores[state.me] = { holes: Array(18).fill(0), total: 0 };
+    draftRound.scores[state.me] = { holes: Array(18).fill(0), out: 0, in: 0, total: 0 };
   }
 }
 
@@ -1531,18 +1573,28 @@ function renderAddRound() {
   ).join('');
 
   const scorecardRows = d.selectedMembers.map(pid => {
-    const sc = d.scores[pid] || { holes: Array(18).fill(0), total: 0 };
-    const out = sc.holes.slice(0,9).reduce((a,b)=>a+b,0);
-    const inS = sc.holes.slice(9,18).reduce((a,b)=>a+b,0);
+    const sc = normalizeScore(d.scores[pid] || {});
+    if (d.outInOnly) {
+      return `<tr data-player-row="${pid}">
+        <td>${memberName(pid)}</td>
+        <td><input class="hole-input" data-player="${pid}" data-field="out" type="number" min="0" max="80" value="${sc.out||''}" style="width:64px;"></td>
+        <td><input class="hole-input" data-player="${pid}" data-field="in" type="number" min="0" max="80" value="${sc.in||''}" style="width:64px;"></td>
+        <td class="total-cell" data-total="${pid}">${sc.total||'-'}</td>
+      </tr>`;
+    }
     return `<tr data-player-row="${pid}">
       <td>${memberName(pid)}</td>
       ${sc.holes.slice(0,9).map((h,i)=>`<td><input class="hole-input" data-player="${pid}" data-hole="${i}" type="number" min="1" max="15" value="${h||''}"></td>`).join('')}
-      <td class="total-cell" data-out="${pid}">${out||'-'}</td>
+      <td class="total-cell" data-out="${pid}">${sc.out||'-'}</td>
       ${sc.holes.slice(9,18).map((h,i)=>`<td><input class="hole-input" data-player="${pid}" data-hole="${i+9}" type="number" min="1" max="15" value="${h||''}"></td>`).join('')}
-      <td class="total-cell" data-in="${pid}">${inS||'-'}</td>
+      <td class="total-cell" data-in="${pid}">${sc.in||'-'}</td>
       <td class="total-cell" data-total="${pid}">${sc.total||'-'}</td>
     </tr>`;
   }).join('');
+
+  const scorecardHeader = d.outInOnly
+    ? `<tr><th>名前</th><th>OUT</th><th>IN</th><th>計</th></tr>`
+    : `<tr><th>名前</th>${Array.from({length:9},(_,i)=>`<th>${i+1}</th>`).join('')}<th>OUT</th>${Array.from({length:9},(_,i)=>`<th>${i+10}</th>`).join('')}<th>IN</th><th>計</th></tr>`;
 
   const photoSlots = [0,1].map(idx => {
     const p = d.photos[idx];
@@ -1583,20 +1635,31 @@ function renderAddRound() {
       </div>
 
       <div class="form-section">
-        <label class="form-label">スコアカード（ホールごと打数）</label>
+        <label class="form-label">スコアカード${d.outInOnly?'（OUT/IN合計のみ）':'（ホールごと打数）'}</label>
         <div style="background: var(--primary-bg); border-radius: var(--radius-md); padding: 12px; margin-bottom: 10px; display:flex; align-items:center; gap:10px;">
           <span style="font-size:22px;">📷</span>
           <div style="flex:1;">
             <div style="font-size:13px; font-weight:600; color: var(--primary-dark);">スコアカード写真からAIで読み取る (β)</div>
-            <div style="font-size:11px; color: var(--text-secondary);">デモではモックデータで動作を確認できます</div>
+            <div style="font-size:11px; color: var(--text-secondary);">AIが詳細/OUT/IN形式を自動判別します</div>
           </div>
           <button class="btn" id="ocr-trigger" style="padding: 8px 14px; font-size: 13px;">読み取り</button>
         </div>
+
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom: 10px; padding: 8px 12px; background: var(--surface-2); border-radius: var(--radius-md);">
+          <span style="font-size: 12px; color: var(--text-secondary);">入力モード：</span>
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size: 13px;">
+            <input type="radio" name="score-mode" value="detail" ${!d.outInOnly?'checked':''} id="mode-detail" style="cursor:pointer;">
+            18ホール詳細
+          </label>
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size: 13px;">
+            <input type="radio" name="score-mode" value="outin" ${d.outInOnly?'checked':''} id="mode-outin" style="cursor:pointer;">
+            OUT/IN合計のみ
+          </label>
+        </div>
+
         <div class="scorecard-wrap">
           <table class="scorecard">
-            <thead>
-              <tr><th>名前</th>${Array.from({length:9},(_,i)=>`<th>${i+1}</th>`).join('')}<th>OUT</th>${Array.from({length:9},(_,i)=>`<th>${i+10}</th>`).join('')}<th>IN</th><th>計</th></tr>
-            </thead>
+            <thead>${scorecardHeader}</thead>
             <tbody id="draft-scorecard">${scorecardRows}</tbody>
           </table>
         </div>
@@ -1877,7 +1940,7 @@ function attachAddRoundHandlers() {
         delete d.scores[mid];
       } else {
         d.selectedMembers.push(mid);
-        d.scores[mid] = { holes: Array(18).fill(0), total: 0 };
+        d.scores[mid] = { holes: Array(18).fill(0), out: 0, in: 0, total: 0 };
       }
       // re-render only the form
       document.getElementById('main-content').innerHTML = renderAddRound();
@@ -1885,23 +1948,40 @@ function attachAddRoundHandlers() {
     };
   });
 
-  // hole inputs
+  // score-mode radio toggle
+  document.querySelectorAll('input[name="score-mode"]').forEach(radio => {
+    radio.onchange = (e) => {
+      d.outInOnly = (e.target.value === 'outin');
+      // re-render to switch table layout
+      document.getElementById('main-content').innerHTML = renderAddRound();
+      attachHandlers();
+    };
+  });
+
+  // hole inputs (detailed mode) and out/in inputs (OUT/IN mode)
   document.querySelectorAll('.hole-input').forEach(input => {
     input.oninput = (e) => {
       const pid = e.target.dataset.player;
-      const hole = parseInt(e.target.dataset.hole);
-      const val = parseInt(e.target.value) || 0;
-      d.scores[pid].holes[hole] = val;
-      const total = d.scores[pid].holes.reduce((a,b)=>a+b,0);
-      const out = d.scores[pid].holes.slice(0,9).reduce((a,b)=>a+b,0);
-      const inS = d.scores[pid].holes.slice(9,18).reduce((a,b)=>a+b,0);
-      d.scores[pid].total = total;
+      const sc = d.scores[pid] || (d.scores[pid] = { holes: Array(18).fill(0), out: 0, in: 0, total: 0 });
+      const field = e.target.dataset.field;
+      if (field === 'out' || field === 'in') {
+        // OUT/IN-only mode
+        sc[field] = parseInt(e.target.value) || 0;
+        sc.total = (sc.out || 0) + (sc.in || 0);
+      } else {
+        // detailed mode
+        const hole = parseInt(e.target.dataset.hole);
+        sc.holes[hole] = parseInt(e.target.value) || 0;
+        sc.out = sc.holes.slice(0,9).reduce((a,b)=>a+b,0);
+        sc.in = sc.holes.slice(9,18).reduce((a,b)=>a+b,0);
+        sc.total = sc.out + sc.in;
+      }
       const outEl = document.querySelector(`[data-out="${pid}"]`);
       const inEl = document.querySelector(`[data-in="${pid}"]`);
       const totalEl = document.querySelector(`[data-total="${pid}"]`);
-      if (outEl) outEl.textContent = out || '-';
-      if (inEl) inEl.textContent = inS || '-';
-      if (totalEl) totalEl.textContent = total || '-';
+      if (outEl) outEl.textContent = sc.out || '-';
+      if (inEl) inEl.textContent = sc.in || '-';
+      if (totalEl) totalEl.textContent = sc.total || '-';
     };
   });
 
@@ -1985,8 +2065,8 @@ function attachAddRoundHandlers() {
         updatedAt: new Date().toISOString(),
       };
       d.selectedMembers.forEach(mid => {
-        const sc = d.scores[mid] || { holes: Array(18).fill(0), total: 0 };
-        newRound.scores[mid] = { holes: sc.holes, total: sc.holes.reduce((a,b)=>a+b,0) };
+        const sc = normalizeScore(d.scores[mid] || {});
+        newRound.scores[mid] = { holes: sc.holes, out: sc.out, in: sc.in, total: sc.total };
       });
       if (commentText) newRound.comments.push({ memberId: state.me, text: commentText });
 
@@ -2111,9 +2191,15 @@ function processOcrResult(data) {
   ocrResult = data;
   ocrAssignments = (data.players || []).map(p => {
     const match = matchMember(p.rawName, state.members);
+    const scores = Array.isArray(p.scores) ? p.scores.slice(0,18) : Array(18).fill(0);
+    while (scores.length < 18) scores.push(0);
+    const out = Number(p.out) || scores.slice(0,9).reduce((a,b)=>a+b,0);
+    const inS = Number(p.in) || scores.slice(9,18).reduce((a,b)=>a+b,0);
+    const total = Number(p.total) || (out + inS);
     return {
       rawName: p.rawName,
-      scores: p.scores,
+      scores,
+      out, in: inS, total,
       memberId: match.member ? match.member.id : '',
       reason: match.reason,
       confidence: match.confidence || 'none',
@@ -2131,9 +2217,11 @@ function showOcrReview() {
   overlay.id = 'ocr-overlay';
 
   const playerRows = ocrAssignments.map((a, idx) => {
-    const matched = a.memberId ? state.members.find(m=>m.id===a.memberId) : null;
-    const total = a.scores.reduce((x,y)=>x+y,0);
     const confClass = a.confidence === 'high' ? 'high' : (a.confidence === 'low' ? 'low' : 'none');
+    const anyHole = (a.scores || []).some(h => Number(h) > 0);
+    const scoresPreview = anyHole
+      ? `OUT ${a.scores.slice(0,9).map(v=>v||'-').join(' ')} = ${a.out||0}<br>IN ${a.scores.slice(9).map(v=>v||'-').join(' ')} = ${a.in||0}<br>合計 <b style="color: var(--primary-dark);">${a.total||0}</b>`
+      : `<span style="background:var(--accent-bg, #FFF4DC); padding:2px 6px; border-radius:4px; margin-right:4px; font-size:10px;">OUT/IN合計のみ</span>OUT ${a.out||0} / IN ${a.in||0} / 合計 <b style="color: var(--primary-dark);">${a.total||0}</b>`;
 
     const memberOptions = state.members.map(m =>
       `<option value="${m.id}" ${m.id===a.memberId?'selected':''}>${m.name}</option>`
@@ -2152,11 +2240,7 @@ function showOcrReview() {
           <div class="ocr-match-info ${confClass}">
             ${a.memberId ? `✓ ${a.reason}` : (a.isNewMember ? '＋ 新規登録予定' : '? 未マッチ - 選択するか新規登録してください')}
           </div>
-          <div class="ocr-scores-preview">
-            OUT ${a.scores.slice(0,9).join(' ')} = ${a.scores.slice(0,9).reduce((x,y)=>x+y,0)}
-            IN ${a.scores.slice(9).join(' ')} = ${a.scores.slice(9).reduce((x,y)=>x+y,0)}
-            合計 <b style="color: var(--primary-dark);">${total}</b>
-          </div>
+          <div class="ocr-scores-preview">${scoresPreview}</div>
         </div>
       </div>
     `;
@@ -2262,9 +2346,18 @@ async function applyOcrToDraft() {
     ocrAssignments.forEach(a => {
       draftRound.scores[a.memberId] = {
         holes: a.scores.slice(),
-        total: a.scores.reduce((x,y)=>x+y,0),
+        out: a.out || 0,
+        in: a.in || 0,
+        total: a.total || 0,
       };
     });
+    // Auto-detect OUT/IN-only mode if all detected scores have no hole detail
+    const allOutInOnly = ocrAssignments.length > 0 && ocrAssignments.every(a => {
+      const anyHole = (a.scores || []).some(h => Number(h) > 0);
+      const hasOutIn = (a.out > 0 || a.in > 0 || a.total > 0);
+      return !anyHole && hasOutIn;
+    });
+    draftRound.outInOnly = allOutInOnly;
 
     closeOcrOverlay();
     document.getElementById('main-content').innerHTML = renderAddRound();
