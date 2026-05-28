@@ -891,9 +891,8 @@ const SESSION_KEY = 'golf_authed';
 const PASSWORD = 'koukeisha45';
 
 // Cloudflare Workers OCR endpoint
-// セットアップ後、関口さんからWorker URLを共有いただいたらこの値を更新します
-// 空文字のままだとモックデータが使われます
-const OCR_WORKER_URL = '';
+// 関口さんのデプロイ済みWorker URL
+const OCR_WORKER_URL = 'https://koukeisha45-golfapp.maturi-kira-wota.workers.dev/';
 
 const DEFAULT_THEMES = [
   { id: 'E', name: 'スポーティーポップ', colors: ['#1D9E75', '#EF9F27', '#FFFFFF'] },
