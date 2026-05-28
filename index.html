@@ -1,0 +1,2378 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>後継者研修ゴルフ - デモ</title>
+<style>
+/* =========================================================
+   THEME SYSTEM - 5 patterns via CSS variables
+   ========================================================= */
+:root,
+[data-theme="E"] {
+  --bg: #FAFAF8;
+  --surface: #FFFFFF;
+  --surface-2: #F5F5F2;
+  --primary: #1D9E75;
+  --primary-dark: #0F6E56;
+  --primary-light: #C0DD97;
+  --primary-bg: #EAF3DE;
+  --accent: #EF9F27;
+  --accent-dark: #BA7517;
+  --text: #1A1A1A;
+  --text-secondary: #555555;
+  --text-muted: #888888;
+  --border: #E5E5E5;
+  --border-strong: #CCCCCC;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --font: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  --font-display: var(--font);
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-strong: 0 4px 12px rgba(0,0,0,0.08);
+  --header-style: pop;
+}
+[data-theme="A"] {
+  --bg: #F4F8EE;
+  --surface: #FFFFFF;
+  --surface-2: #EAF0DE;
+  --primary: #3B6D11;
+  --primary-dark: #173404;
+  --primary-light: #C0DD97;
+  --primary-bg: #EAF3DE;
+  --accent: #B8945F;
+  --accent-dark: #8B6E3F;
+  --text: #173404;
+  --text-secondary: #4A5A3A;
+  --text-muted: #7A8A6A;
+  --border: #D5DCC8;
+  --border-strong: #B5BCA8;
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-pill: 4px;
+  --font: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  --font-display: Georgia, "Yu Mincho", serif;
+  --shadow: none;
+  --shadow-strong: 0 2px 6px rgba(0,0,0,0.08);
+  --header-style: classic;
+}
+[data-theme="B"] {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-2: #F7F7F7;
+  --primary: #111111;
+  --primary-dark: #000000;
+  --primary-light: #EAEAEA;
+  --primary-bg: #F5F5F5;
+  --accent: #666666;
+  --accent-dark: #333333;
+  --text: #111111;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --border: #EDEDED;
+  --border-strong: #D5D5D5;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-pill: 999px;
+  --font: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  --font-display: var(--font);
+  --shadow: none;
+  --shadow-strong: 0 0 0 0.5px rgba(0,0,0,0.08);
+  --header-style: minimal;
+}
+[data-theme="C"] {
+  --bg: #0C2340;
+  --surface: #1A3554;
+  --surface-2: #143049;
+  --primary: #B8945F;
+  --primary-dark: #8B6E3F;
+  --primary-light: #D8C9A6;
+  --primary-bg: #2A4A6A;
+  --accent: #F5EFE0;
+  --accent-dark: #D8C9A6;
+  --text: #F5EFE0;
+  --text-secondary: #D8C9A6;
+  --text-muted: #8FA0B0;
+  --border: #2A4A6A;
+  --border-strong: #3A5A7A;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-pill: 999px;
+  --font: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  --font-display: Georgia, "Yu Mincho", serif;
+  --shadow: none;
+  --shadow-strong: 0 4px 16px rgba(0,0,0,0.3);
+  --header-style: premium;
+}
+[data-theme="D"] {
+  --bg: #FAF7F0;
+  --surface: #FFFFFF;
+  --surface-2: #F0EBD9;
+  --primary: #8B1A1A;
+  --primary-dark: #5A0F0F;
+  --primary-light: #E8B0B0;
+  --primary-bg: #F5E0E0;
+  --accent: #1A4A2A;
+  --accent-dark: #0F3520;
+  --text: #1A1A1A;
+  --text-secondary: #4A4A4A;
+  --text-muted: #7A7A7A;
+  --border: #E8DFC8;
+  --border-strong: #C8BFA8;
+  --radius-sm: 0px;
+  --radius-md: 2px;
+  --radius-lg: 3px;
+  --radius-pill: 0px;
+  --font: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  --font-display: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --shadow: none;
+  --shadow-strong: 0 2px 8px rgba(0,0,0,0.06);
+  --header-style: wa;
+}
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+button { font-family: inherit; cursor: pointer; border: none; background: transparent; color: inherit; }
+input, select, textarea { font-family: inherit; font-size: inherit; color: inherit; }
+a { color: var(--primary); text-decoration: none; }
+
+/* =========================================================
+   APP LAYOUT
+   ========================================================= */
+#app {
+  max-width: 720px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--bg);
+  padding-bottom: 120px;
+  position: relative;
+}
+
+/* HEADER */
+.app-header {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 18px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+[data-theme="C"] .app-header { background: var(--surface); border-bottom-color: var(--accent-dark); }
+[data-theme="D"] .app-header { border-top: 3px solid var(--primary); }
+
+.app-title {
+  font-family: var(--font-display);
+  font-size: 17px; font-weight: 600;
+  color: var(--text);
+  display: flex; align-items: center; gap: 8px;
+}
+.app-title-icon {
+  width: 28px; height: 28px;
+  background: var(--primary); color: white;
+  border-radius: var(--radius-pill);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700;
+}
+[data-theme="C"] .app-title-icon { background: var(--primary); color: var(--bg); }
+
+.app-user {
+  font-size: 13px; color: var(--text-secondary);
+  display: flex; align-items: center; gap: 6px;
+}
+.user-avatar {
+  width: 30px; height: 30px;
+  background: var(--primary-bg); color: var(--primary-dark);
+  border-radius: var(--radius-pill);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600;
+}
+[data-theme="C"] .user-avatar { background: var(--primary-bg); color: var(--primary); }
+
+/* MAIN */
+.app-main { padding: 18px; }
+
+/* VIEW TRANSITION */
+.view { animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* SECTION HEADING */
+.section-heading {
+  font-size: 13px; font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase; letter-spacing: 1.5px;
+  margin: 24px 0 12px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+[data-theme="D"] .section-heading { font-family: var(--font-display); letter-spacing: 2px; }
+
+/* =========================================================
+   ROUND CARD (Timeline)
+   ========================================================= */
+.round-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.round-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-strong); }
+[data-theme="A"] .round-card { border-left: 4px solid var(--primary); border-radius: 0; }
+[data-theme="C"] .round-card { background: var(--surface); border-color: var(--primary); border-top: 0.5px solid var(--primary); border-bottom: 0.5px solid var(--primary); }
+[data-theme="D"] .round-card { border-top: 3px solid var(--primary); border-radius: 0; }
+[data-theme="E"] .round-card { border: 2px solid var(--primary); }
+
+.round-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+.round-meta { flex: 1; }
+.round-tags { display: flex; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; }
+.tag {
+  font-size: 11px; padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--primary-bg); color: var(--primary-dark);
+  font-weight: 500;
+}
+.tag-accent { background: var(--accent); color: white; }
+[data-theme="C"] .tag { background: var(--primary-bg); color: var(--primary); }
+[data-theme="C"] .tag-accent { background: var(--accent); color: var(--bg); }
+[data-theme="B"] .tag { background: var(--surface-2); color: var(--text); border: 0.5px solid var(--border); }
+[data-theme="D"] .tag { background: var(--surface-2); color: var(--text); border-radius: 0; }
+
+.round-course {
+  font-family: var(--font-display);
+  font-size: 17px; font-weight: 600;
+  color: var(--text);
+  margin-top: 2px;
+}
+.round-best {
+  background: var(--primary-bg);
+  border-radius: var(--radius-md);
+  padding: 6px 12px;
+  text-align: center;
+  min-width: 64px;
+}
+.round-best-label { font-size: 10px; color: var(--primary-dark); text-transform: uppercase; letter-spacing: 1px; }
+.round-best-score { font-size: 20px; font-weight: 600; color: var(--primary-dark); line-height: 1.1; }
+[data-theme="C"] .round-best { background: var(--primary-bg); }
+[data-theme="C"] .round-best-label, [data-theme="C"] .round-best-score { color: var(--primary); }
+
+.round-body { display: grid; grid-template-columns: 1fr 110px; gap: 12px; }
+.round-scores { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+.round-scores .crown { color: var(--accent); font-weight: 600; }
+.round-photo {
+  height: 80px;
+  background: var(--surface-2);
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--text-muted);
+  background-size: cover; background-position: center;
+  border: 1px solid var(--border);
+}
+.round-photo.empty { background: var(--surface-2); }
+
+/* =========================================================
+   RANKING VIEW
+   ========================================================= */
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 10px; margin-bottom: 18px;
+}
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+}
+.kpi-label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+.kpi-value { font-family: var(--font-display); font-size: 24px; font-weight: 600; color: var(--primary-dark); margin-top: 4px; }
+[data-theme="C"] .kpi-value { color: var(--primary); }
+
+.ranking-table {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.ranking-row {
+  display: grid; grid-template-columns: 62px 1fr 60px 60px;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  min-height: 64px;
+}
+.ranking-row:last-child { border-bottom: none; }
+.ranking-row.header {
+  background: var(--surface-2);
+  font-size: 11px; color: var(--text-secondary);
+  text-transform: uppercase; letter-spacing: 1px;
+  font-weight: 600;
+  min-height: auto;
+  padding: 10px 14px;
+}
+.ranking-row.top-1 { background: linear-gradient(90deg, rgba(241,196,15,0.12), transparent 50%); }
+.ranking-row.top-2 { background: linear-gradient(90deg, rgba(160,170,180,0.14), transparent 50%); }
+.ranking-row.top-3 { background: linear-gradient(90deg, rgba(205,127,50,0.12), transparent 50%); }
+[data-theme="C"] .ranking-row.top-1 { background: linear-gradient(90deg, rgba(241,196,15,0.18), transparent 50%); }
+[data-theme="C"] .ranking-row.top-2 { background: linear-gradient(90deg, rgba(200,210,220,0.15), transparent 50%); }
+[data-theme="C"] .ranking-row.top-3 { background: linear-gradient(90deg, rgba(230,140,60,0.18), transparent 50%); }
+
+.rank-num {
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 18px;
+  color: var(--text-muted);
+  text-align: center;
+}
+.medal-svg { display: block; width: 56px; height: 50px; }
+.rank-num-plain {
+  width: 56px; height: 50px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 18px;
+  color: var(--text-muted);
+}
+.rank-name { display: flex; align-items: center; gap: 8px; }
+.rank-name .user-avatar { width: 26px; height: 26px; font-size: 11px; }
+.rank-score { text-align: right; font-weight: 600; color: var(--text); }
+.rank-rounds { text-align: right; color: var(--text-secondary); font-size: 13px; }
+
+/* =========================================================
+   FORM
+   ========================================================= */
+.form-section { margin-bottom: 20px; }
+.form-label {
+  display: block;
+  font-size: 12px; font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  font-size: 15px;
+  color: var(--text);
+  transition: border-color 0.15s;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none; border-color: var(--primary);
+}
+.form-textarea { resize: vertical; min-height: 64px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.weather-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.weather-chip {
+  padding: 6px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.weather-chip.selected {
+  background: var(--primary); color: white;
+  border-color: var(--primary);
+}
+[data-theme="C"] .weather-chip.selected { background: var(--primary); color: var(--bg); }
+
+.member-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;
+}
+.member-chip {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.member-chip.selected {
+  background: var(--primary-bg);
+  border-color: var(--primary);
+  color: var(--primary-dark);
+}
+[data-theme="C"] .member-chip.selected { color: var(--primary); }
+.member-chip .check {
+  width: 18px; height: 18px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+}
+.member-chip.selected .check { background: var(--primary); color: white; }
+
+/* Scorecard table */
+.scorecard-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.scorecard {
+  border-collapse: collapse;
+  width: 100%; min-width: 720px;
+  font-size: 13px;
+  background: var(--surface);
+  border-radius: var(--radius-md);
+}
+.scorecard th, .scorecard td {
+  border: 1px solid var(--border);
+  padding: 6px 4px;
+  text-align: center;
+}
+.scorecard th {
+  background: var(--surface-2);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  position: sticky; top: 0;
+}
+.scorecard td:first-child, .scorecard th:first-child {
+  position: sticky; left: 0;
+  background: var(--surface);
+  z-index: 2;
+  text-align: left;
+  padding-left: 8px;
+  min-width: 90px;
+  font-weight: 500;
+}
+.scorecard th:first-child { background: var(--surface-2); }
+.scorecard input.hole-input {
+  width: 38px;
+  border: none;
+  background: transparent;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  padding: 4px 2px;
+}
+.scorecard input.hole-input:focus {
+  outline: 2px solid var(--primary);
+  border-radius: 4px;
+  background: var(--primary-bg);
+}
+.scorecard td.total-cell {
+  background: var(--primary-bg);
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+[data-theme="C"] .scorecard td.total-cell { color: var(--primary); }
+
+/* Photo upload */
+.photo-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.photo-upload {
+  aspect-ratio: 1;
+  background: var(--surface-2);
+  border: 2px dashed var(--border-strong);
+  border-radius: var(--radius-md);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: 12px; color: var(--text-muted);
+  position: relative;
+  overflow: hidden;
+  background-size: cover; background-position: center;
+}
+.photo-upload.has-image { border-style: solid; border-color: var(--primary); }
+.photo-upload input[type="file"] { display: none; }
+.photo-upload .photo-icon { font-size: 28px; margin-bottom: 4px; opacity: 0.5; }
+.photo-upload .photo-remove {
+  position: absolute; top: 4px; right: 4px;
+  background: rgba(0,0,0,0.6); color: white;
+  width: 22px; height: 22px;
+  border-radius: var(--radius-pill);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; line-height: 1;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 18px;
+  background: var(--primary); color: white;
+  border-radius: var(--radius-pill);
+  font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: opacity 0.15s, transform 0.1s;
+  border: none;
+}
+.btn:hover { opacity: 0.9; }
+.btn:active { transform: scale(0.98); }
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+}
+.btn-ghost { background: transparent; color: var(--text-secondary); }
+.btn-full { width: 100%; padding: 12px 18px; }
+[data-theme="C"] .btn { color: var(--bg); }
+
+/* FAB */
+.fab {
+  position: fixed; bottom: 84px;
+  right: max(20px, calc(50vw - 340px));
+  width: 56px; height: 56px;
+  background: var(--primary); color: white;
+  border-radius: var(--radius-pill);
+  font-size: 28px; font-weight: 300;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-strong);
+  z-index: 40;
+}
+[data-theme="C"] .fab { color: var(--bg); }
+[data-theme="B"] .fab { background: var(--text); color: var(--surface); }
+
+/* =========================================================
+   BOTTOM NAV
+   ========================================================= */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-around;
+  padding: 8px 0 12px;
+  z-index: 30;
+  max-width: 720px; margin: 0 auto;
+}
+.nav-item {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 6px 14px;
+  font-size: 11px; color: var(--text-muted);
+  border-radius: var(--radius-md);
+  background: transparent;
+}
+.nav-item .nav-icon { font-size: 20px; line-height: 1; }
+.nav-item.active { color: var(--primary); }
+.nav-item.active .nav-icon { transform: scale(1.05); }
+
+/* =========================================================
+   ROUND DETAIL
+   ========================================================= */
+.detail-hero {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  margin-bottom: 18px;
+  border: 1px solid var(--border);
+}
+[data-theme="E"] .detail-hero { border: 2px solid var(--primary); }
+[data-theme="D"] .detail-hero { border-top: 3px solid var(--primary); border-radius: 0; }
+[data-theme="A"] .detail-hero { border-left: 4px solid var(--primary); border-radius: 0; }
+
+.detail-photos {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 8px; margin-bottom: 18px;
+}
+.detail-photo {
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  background-size: cover; background-position: center;
+  background-color: var(--surface-2);
+  position: relative;
+  overflow: hidden;
+}
+.detail-photo .caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  color: white;
+  padding: 16px 8px 6px;
+  font-size: 11px;
+}
+
+.comment-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  margin-bottom: 8px;
+}
+.comment-author { font-size: 12px; font-weight: 600; color: var(--primary-dark); margin-bottom: 4px; }
+[data-theme="C"] .comment-author { color: var(--primary); }
+.comment-text { font-size: 14px; color: var(--text); }
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+.theme-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+.theme-option {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.theme-option.active { border-color: var(--primary); }
+.theme-option-name { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+.theme-option-name .label { font-size: 11px; color: var(--text-muted); margin-right: 6px; font-weight: 400; }
+.theme-swatches { display: flex; gap: 4px; }
+.theme-swatch { width: 18px; height: 18px; border-radius: var(--radius-pill); border: 1px solid var(--border); }
+
+.member-list { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.member-list-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+.member-list-row:last-child { border-bottom: none; }
+.member-list-row .user-avatar { width: 32px; height: 32px; font-size: 12px; }
+.member-list-row .role { margin-left: auto; font-size: 11px; color: var(--text-muted); }
+.member-list-row-clickable { cursor: pointer; transition: background 0.15s; }
+.member-list-row-clickable:hover { background: var(--surface-2); }
+.member-list-row-clickable:active { background: var(--primary-bg); }
+
+/* =========================================================
+   PLAYER STATS
+   ========================================================= */
+.player-pick {
+  display: flex; gap: 8px; overflow-x: auto;
+  margin-bottom: 18px;
+  padding-bottom: 6px;
+}
+.player-pick-chip {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.player-pick-chip.active { background: var(--primary); color: white; border-color: var(--primary); }
+[data-theme="C"] .player-pick-chip.active { color: var(--bg); }
+
+.stat-graph {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+.graph-title { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 12px; }
+
+.recent-rounds-mini { display: flex; gap: 4px; align-items: flex-end; height: 100px; }
+.recent-bar {
+  flex: 1;
+  background: var(--primary);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  position: relative;
+  min-height: 6px;
+}
+.recent-bar .bar-label {
+  position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+  font-size: 11px; color: var(--text-secondary);
+}
+.recent-bar .bar-date {
+  position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%);
+  font-size: 10px; color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+.empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* =========================================================
+   UTIL
+   ========================================================= */
+.hidden { display: none !important; }
+.row-between { display: flex; align-items: center; justify-content: space-between; }
+.help-text { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+.divider { height: 1px; background: var(--border); margin: 18px 0; }
+
+/* OCR modal */
+.ocr-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 200;
+  display: flex; align-items: flex-end; justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+.ocr-modal {
+  background: var(--surface);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  width: 100%; max-width: 720px;
+  max-height: 90vh; overflow-y: auto;
+  padding: 18px;
+  animation: slideUp 0.25s ease;
+}
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0.5; } to { transform: translateY(0); opacity: 1; } }
+
+.ocr-progress {
+  text-align: center; padding: 40px 20px;
+}
+.ocr-spinner {
+  width: 40px; height: 40px;
+  margin: 0 auto 16px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.ocr-result-row {
+  display: grid; grid-template-columns: 90px 1fr;
+  gap: 10px; align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.ocr-result-row:last-child { border-bottom: none; }
+.ocr-raw-name {
+  background: var(--surface-2);
+  border-radius: var(--radius-md);
+  padding: 8px;
+  text-align: center;
+  font-weight: 500;
+}
+.ocr-match-info { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+.ocr-match-info.high { color: var(--primary-dark); }
+.ocr-match-info.low { color: #B97615; }
+.ocr-match-info.none { color: #C0392B; }
+.ocr-scores-preview {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: 'Courier New', monospace;
+  margin-top: 4px;
+}
+
+/* Login screen */
+#login-screen {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 100;
+  padding: 24px;
+}
+.login-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  max-width: 360px; width: 100%;
+  text-align: center;
+}
+.login-logo {
+  width: 60px; height: 60px;
+  background: var(--primary); color: white;
+  border-radius: var(--radius-pill);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 28px; font-weight: 700;
+  margin-bottom: 16px;
+}
+[data-theme="C"] .login-logo { color: var(--bg); }
+.login-title { font-family: var(--font-display); font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.login-subtitle { font-size: 13px; color: var(--text-secondary); margin-bottom: 24px; }
+.login-error { color: #C0392B; font-size: 12px; margin-top: 8px; min-height: 16px; }
+
+/* Mobile tweaks */
+@media (max-width: 480px) {
+  .app-main { padding: 14px; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .form-row { grid-template-columns: 1fr; }
+  .round-body { grid-template-columns: 1fr 90px; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">G</div>
+    <div class="login-title">後継者研修ゴルフ</div>
+    <div class="login-subtitle">合い言葉を入力してください</div>
+    <input type="password" id="login-input" class="form-input" placeholder="合い言葉" autocomplete="off">
+    <div class="login-error" id="login-error"></div>
+    <button class="btn btn-full" id="login-btn" style="margin-top: 12px;">入室</button>
+    <div class="help-text" style="margin-top: 16px;">合い言葉を仲間にLINEで共有してください</div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" class="hidden">
+  <header class="app-header">
+    <div class="app-title">
+      <div class="app-title-icon">G</div>
+      <span id="app-title-text">後継者研修ゴルフ</span>
+    </div>
+    <div class="app-user" id="app-user">
+      <div class="user-avatar" id="header-avatar">関</div>
+    </div>
+  </header>
+
+  <main class="app-main" id="main-content">
+    <!-- views are rendered here -->
+  </main>
+
+  <button class="fab" id="fab-add" title="ラウンドを追加">＋</button>
+
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-view="timeline">
+      <span class="nav-icon">⛳</span>
+      <span>タイムライン</span>
+    </button>
+    <button class="nav-item" data-view="ranking">
+      <span class="nav-icon">🏆</span>
+      <span>ランキング</span>
+    </button>
+    <button class="nav-item" data-view="stats">
+      <span class="nav-icon">📊</span>
+      <span>個人成績</span>
+    </button>
+    <button class="nav-item" data-view="settings">
+      <span class="nav-icon">⚙️</span>
+      <span>設定</span>
+    </button>
+  </nav>
+</div>
+
+<script type="module">
+/* =========================================================
+   FIREBASE INITIALIZATION
+   ========================================================= */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+import {
+  getFirestore, collection, doc, setDoc, addDoc, getDocs, updateDoc, deleteDoc, onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+import {
+  getStorage, ref as storageRef, uploadBytes, getDownloadURL, deleteObject
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDLtezzqyFHKN3XU4cTFOgntgrJCwvp9EM",
+  authDomain: "koukeisha-golf.firebaseapp.com",
+  projectId: "koukeisha-golf",
+  storageBucket: "koukeisha-golf.firebasestorage.app",
+  messagingSenderId: "277374097318",
+  appId: "1:277374097318:web:bfd9e7d80a06f78ea76167"
+};
+const fbApp = initializeApp(firebaseConfig);
+const auth = getAuth(fbApp);
+const db = getFirestore(fbApp);
+const storage = getStorage(fbApp);
+
+/* =========================================================
+   STATE & STORAGE
+   ========================================================= */
+const PREFS_KEY = 'golf_prefs_v2';
+const SESSION_KEY = 'golf_authed';
+const PASSWORD = 'koukeisha45';
+
+// Cloudflare Workers OCR endpoint
+// セットアップ後、関口さんからWorker URLを共有いただいたらこの値を更新します
+// 空文字のままだとモックデータが使われます
+const OCR_WORKER_URL = '';
+
+const DEFAULT_THEMES = [
+  { id: 'E', name: 'スポーティーポップ', colors: ['#1D9E75', '#EF9F27', '#FFFFFF'] },
+  { id: 'A', name: 'グリーンクラシック', colors: ['#3B6D11', '#B8945F', '#F4F8EE'] },
+  { id: 'B', name: 'モダンミニマル',     colors: ['#111111', '#666666', '#FFFFFF'] },
+  { id: 'C', name: 'ネイビー高級感',     colors: ['#0C2340', '#B8945F', '#F5EFE0'] },
+  { id: 'D', name: '和モダン',           colors: ['#8B1A1A', '#1A4A2A', '#FAF7F0'] },
+];
+
+let state = {
+  me: null,
+  theme: 'E',
+  members: [],
+  rounds: [],
+};
+
+let membersUnsub = null;
+let roundsUnsub = null;
+let dataReady = false;
+let mePromptShown = false;
+
+function loadPrefs() {
+  try {
+    const raw = localStorage.getItem(PREFS_KEY);
+    if (raw) {
+      const p = JSON.parse(raw);
+      if (p.me) state.me = p.me;
+      if (p.theme) state.theme = p.theme;
+    }
+  } catch(e) {}
+}
+function savePrefs() {
+  localStorage.setItem(PREFS_KEY, JSON.stringify({ me: state.me, theme: state.theme }));
+}
+
+/* Seed Firestore with sample members on first run (when empty) */
+async function maybeSeedInitialData() {
+  const snap = await getDocs(collection(db, 'members'));
+  if (!snap.empty) return false;
+  const seeds = [
+    { name: '関口 圭太', initial: '関', yomi: 'せきぐちけいた', aliases: ['関口','関','セキ','ケータ'] },
+    { name: '田中 健一', initial: '田', yomi: 'たなかけんいち', aliases: ['田中','タナカ','ケンイチ'] },
+    { name: '佐藤 翔太', initial: '佐', yomi: 'さとうしょうた', aliases: ['佐藤','サトウ','ショウタ'] },
+    { name: '鈴木 大介', initial: '鈴', yomi: 'すずきだいすけ', aliases: ['鈴木','スズキ','ダイスケ'] },
+    { name: '山田 雄一', initial: '山', yomi: 'やまだゆういち', aliases: ['山田','ヤマダ'] },
+    { name: '高橋 翼',   initial: '高', yomi: 'たかはしつばさ', aliases: ['高橋','タカハシ','ツバサ'] },
+  ];
+  for (const m of seeds) {
+    await addDoc(collection(db, 'members'), m);
+  }
+  return true;
+}
+
+/* Start realtime listeners on Firestore collections */
+function startListeners() {
+  if (membersUnsub) membersUnsub();
+  if (roundsUnsub) roundsUnsub();
+  membersUnsub = onSnapshot(collection(db, 'members'), (snap) => {
+    state.members = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    afterDataChange();
+  }, (err) => console.error('members listener error', err));
+  roundsUnsub = onSnapshot(collection(db, 'rounds'), (snap) => {
+    state.rounds = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    afterDataChange();
+  }, (err) => console.error('rounds listener error', err));
+}
+
+function afterDataChange() {
+  dataReady = true;
+  // First run: if user has not picked themselves, prompt
+  if (state.members.length > 0 && !state.me && !mePromptShown) {
+    mePromptShown = true;
+    promptSelectMe();
+    return;
+  }
+  // If state.me points to a deleted member, reset
+  if (state.me && !state.members.find(m => m.id === state.me)) {
+    state.me = null;
+    savePrefs();
+    if (state.members.length > 0 && !mePromptShown) {
+      mePromptShown = true;
+      promptSelectMe();
+      return;
+    }
+  }
+  // Update header avatar
+  const headerAvatar = document.getElementById('header-avatar');
+  if (headerAvatar) headerAvatar.textContent = state.me ? memberInitial(state.me) : '?';
+  render();
+}
+
+function promptSelectMe() {
+  closeOcrOverlay();
+  const overlay = document.createElement('div');
+  overlay.className = 'ocr-overlay';
+  overlay.id = 'ocr-overlay';
+  overlay.innerHTML = `
+    <div class="ocr-modal" style="max-height:80vh;">
+      <h3 style="margin-bottom: 6px; font-size: 17px;">あなたは誰ですか？</h3>
+      <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 16px;">
+        スコア入力で「自分のコメント」「自分の参加デフォルト」を設定するため、まずあなた自身を選んでください。
+      </p>
+      <div style="max-height: 50vh; overflow-y: auto; margin-bottom: 12px;">
+        ${state.members.map(m => `
+          <button class="btn btn-secondary" data-me-id="${m.id}" style="width:100%; margin-bottom:6px; justify-content:flex-start; padding: 12px 14px;">
+            <span class="user-avatar" style="width:30px; height:30px; font-size:12px; margin-right:10px;">${m.initial}</span>
+            ${m.name}${m.yomi?` <span style="color:var(--text-muted); font-size:11px; margin-left:6px;">${m.yomi}</span>`:''}
+          </button>
+        `).join('')}
+      </div>
+      <button class="btn btn-ghost" id="add-me-new" style="width:100%;">＋ 新規メンバーとして自分を追加</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  overlay.querySelectorAll('[data-me-id]').forEach(b => {
+    b.onclick = () => {
+      state.me = b.dataset.meId;
+      savePrefs();
+      overlay.remove();
+      afterDataChange();
+    };
+  });
+  document.getElementById('add-me-new').onclick = async () => {
+    const name = prompt('あなたの名前を入力してください');
+    if (!name || !name.trim()) return;
+    const initial = name.trim().charAt(0);
+    const ref = await addDoc(collection(db, 'members'), {
+      name: name.trim(), initial, yomi: '', aliases: []
+    });
+    state.me = ref.id;
+    savePrefs();
+    overlay.remove();
+    afterDataChange();
+  };
+}
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+function fmtDate(iso) {
+  const d = new Date(iso);
+  const days = ['日','月','火','水','木','金','土'];
+  return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')} (${days[d.getDay()]})`;
+}
+function fmtDateShort(iso) {
+  const d = new Date(iso);
+  return `${d.getMonth()+1}/${d.getDate()}`;
+}
+function memberName(id) { return (state.members.find(m=>m.id===id) || {name:'?'}).name; }
+function memberInitial(id) { return (state.members.find(m=>m.id===id) || {initial:'?'}).initial; }
+function roundParticipants(round) { return Object.keys(round.scores); }
+function bestOfRound(round) {
+  // returns array of tied best entries: [[pid, scoreObj], ...]
+  const scores = Object.entries(round.scores);
+  if (!scores.length) return [];
+  const min = Math.min(...scores.map(([,s]) => s.total));
+  return scores.filter(([,s]) => s.total === min);
+}
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  state.theme = t;
+  savePrefs();
+}
+
+// Katakana -> Hiragana, lowercase, strip whitespace
+function normalizeName(s) {
+  if (!s) return '';
+  return String(s)
+    .replace(/[ァ-ヶ]/g, m => String.fromCharCode(m.charCodeAt(0) - 0x60))
+    .toLowerCase()
+    .replace(/\s+/g, '');
+}
+
+// Generate plausible 18-hole scores summing close to target total
+function generateScoresForTarget(target) {
+  const arr = Array(18).fill(0);
+  const base = Math.floor(target / 18);
+  let remainder = target - base * 18;
+  for (let i=0;i<18;i++) arr[i] = base;
+  let i = 0;
+  while (remainder > 0) { arr[i % 18]++; remainder--; i++; }
+  // small randomization preserving total
+  for (let k=0;k<10;k++) {
+    const a = Math.floor(Math.random()*18);
+    const b = Math.floor(Math.random()*18);
+    if (arr[a] > 3 && arr[b] < 7) { arr[a]--; arr[b]++; }
+  }
+  return arr;
+}
+
+// Mock OCR result - simulates what Claude Vision would return from a scorecard photo
+function mockOcrRecognition() {
+  // mix of formats to demo the matching:
+  // - exact name match
+  // - alias match
+  // - katakana version (yomi match)
+  // - unmatched (new member)
+  return {
+    course: '霞ヶ関カンツリー倶楽部',
+    weather: '晴れ',
+    date: new Date().toISOString().slice(0,10),
+    players: [
+      { rawName: '関口',     scores: generateScoresForTarget(82) },
+      { rawName: 'サトウ',   scores: generateScoresForTarget(76) },
+      { rawName: '田中',     scores: generateScoresForTarget(79) },
+      { rawName: '山下',     scores: generateScoresForTarget(88) },
+    ],
+  };
+}
+
+// Try to match a handwritten name string against registered members
+function matchMember(rawName, members) {
+  const raw = normalizeName(rawName);
+  if (!raw) return { member: null, reason: '空文字' };
+
+  // 1. Exact match against name / aliases / yomi
+  for (const m of members) {
+    const cands = [m.name, ...(m.aliases || []), m.yomi || ''];
+    for (const c of cands) {
+      if (!c) continue;
+      if (normalizeName(c) === raw) {
+        const reason = c === m.yomi ? 'よみ一致' : (c === m.name ? '名前一致' : '別名一致');
+        return { member: m, reason, confidence: 'high' };
+      }
+    }
+    // last-name (first segment of name) match
+    const lastName = (m.name || '').split(/\s+/)[0];
+    if (lastName && normalizeName(lastName) === raw) {
+      return { member: m, reason: '苗字一致', confidence: 'high' };
+    }
+  }
+
+  // 2. Substring / partial match
+  for (const m of members) {
+    const cands = [m.name, ...(m.aliases || []), m.yomi || ''];
+    for (const c of cands) {
+      if (!c) continue;
+      const norm = normalizeName(c);
+      if (norm.includes(raw) || raw.includes(norm)) {
+        return { member: m, reason: '部分一致', confidence: 'low' };
+      }
+    }
+  }
+
+  return { member: null, reason: '未登録', confidence: 'none' };
+}
+
+function medalSvg(rank, uid=0) {
+  const palette = {
+    1: { c1:'#FFF4B5', c2:'#F1C40F', c3:'#B8860B', stroke:'#FFE066', leaf:'#5A8C3A', leafDark:'#3F6B26', ribbon:'#C0392B', ribbonDark:'#922B21' },
+    2: { c1:'#FFFFFF', c2:'#C8CED2', c3:'#7E868C', stroke:'#E5E8EA', leaf:'#5A8C3A', leafDark:'#3F6B26', ribbon:'#7F8C8D', ribbonDark:'#5D6D6E' },
+    3: { c1:'#FFD09A', c2:'#CD7F32', c3:'#7B3F1A', stroke:'#E89F4D', leaf:'#5A8C3A', leafDark:'#3F6B26', ribbon:'#C0392B', ribbonDark:'#922B21' },
+  };
+  const p = palette[rank];
+  if (!p) return '';
+  const gid = `mg_${rank}_${uid}`;
+  const lgid = `mlg_${rank}_${uid}`;
+  return `<svg viewBox="0 0 80 72" class="medal-svg" aria-label="${rank}位">
+    <defs>
+      <radialGradient id="${gid}" cx="35%" cy="35%" r="65%">
+        <stop offset="0%" stop-color="${p.c1}"/>
+        <stop offset="55%" stop-color="${p.c2}"/>
+        <stop offset="100%" stop-color="${p.c3}"/>
+      </radialGradient>
+      <linearGradient id="${lgid}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="${p.leaf}"/>
+        <stop offset="100%" stop-color="${p.leafDark}"/>
+      </linearGradient>
+    </defs>
+    <g fill="url(#${lgid})">
+      <ellipse cx="14" cy="14" rx="3" ry="5.5" transform="rotate(-55 14 14)"/>
+      <ellipse cx="11" cy="22" rx="3" ry="5.5" transform="rotate(-40 11 22)"/>
+      <ellipse cx="10" cy="31" rx="3" ry="5.5" transform="rotate(-15 10 31)"/>
+      <ellipse cx="10" cy="40" rx="3" ry="5.5" transform="rotate(15 10 40)"/>
+      <ellipse cx="11" cy="49" rx="3" ry="5.5" transform="rotate(40 11 49)"/>
+      <ellipse cx="14" cy="57" rx="3" ry="5.5" transform="rotate(55 14 57)"/>
+    </g>
+    <g fill="url(#${lgid})">
+      <ellipse cx="66" cy="14" rx="3" ry="5.5" transform="rotate(55 66 14)"/>
+      <ellipse cx="69" cy="22" rx="3" ry="5.5" transform="rotate(40 69 22)"/>
+      <ellipse cx="70" cy="31" rx="3" ry="5.5" transform="rotate(15 70 31)"/>
+      <ellipse cx="70" cy="40" rx="3" ry="5.5" transform="rotate(-15 70 40)"/>
+      <ellipse cx="69" cy="49" rx="3" ry="5.5" transform="rotate(-40 69 49)"/>
+      <ellipse cx="66" cy="57" rx="3" ry="5.5" transform="rotate(-55 66 57)"/>
+    </g>
+    <circle cx="40" cy="34" r="22" fill="url(#${gid})" stroke="${p.stroke}" stroke-width="1.5"/>
+    <circle cx="40" cy="34" r="18" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+    <text x="40" y="43" text-anchor="middle" font-size="22" font-weight="700" fill="#FFFFFF" font-family="Georgia, serif" style="filter: drop-shadow(0 1px 1.5px rgba(0,0,0,0.35));">${rank}</text>
+    <path d="M 24 56 L 18 70 L 28 65 L 30 60 Z" fill="${p.ribbon}" stroke="${p.ribbonDark}" stroke-width="0.5"/>
+    <path d="M 56 56 L 62 70 L 52 65 L 50 60 Z" fill="${p.ribbon}" stroke="${p.ribbonDark}" stroke-width="0.5"/>
+  </svg>`;
+}
+
+/* =========================================================
+   ROUTER / VIEWS
+   ========================================================= */
+let currentView = 'timeline';
+let currentDetailId = null;
+let currentStatsPlayer = null;
+let currentEditMemberId = null;
+
+function setView(name, opts={}) {
+  currentView = name;
+  if (opts.detailId) currentDetailId = opts.detailId;
+  if (opts.playerId) currentStatsPlayer = opts.playerId;
+  if (opts.memberId !== undefined) currentEditMemberId = opts.memberId;
+  document.querySelectorAll('.nav-item').forEach(b => {
+    const tabName = ['timeline','ranking','stats','settings'].includes(name) ? name : (['member-edit'].includes(name) ? 'settings' : currentView);
+    b.classList.toggle('active', b.dataset.view === tabName);
+  });
+  render();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function render() {
+  const main = document.getElementById('main-content');
+  const v = currentView;
+  if (v === 'timeline') main.innerHTML = renderTimeline();
+  else if (v === 'ranking') main.innerHTML = renderRanking();
+  else if (v === 'stats') main.innerHTML = renderStats();
+  else if (v === 'settings') main.innerHTML = renderSettings();
+  else if (v === 'detail') main.innerHTML = renderDetail();
+  else if (v === 'add-round') main.innerHTML = renderAddRound();
+  else if (v === 'member-edit') main.innerHTML = renderMemberEdit();
+  attachHandlers();
+}
+
+/* ---------- TIMELINE ---------- */
+function renderTimeline() {
+  const sorted = [...state.rounds].sort((a,b)=> b.date.localeCompare(a.date));
+  if (!sorted.length) {
+    return `<div class="empty">まだラウンド記録がありません<br>右下の「＋」から追加してみてください</div>`;
+  }
+  const cards = sorted.map(r => {
+    const bestArr = bestOfRound(r);
+    const bestIds = bestArr.map(([pid]) => pid);
+    const players = roundParticipants(r);
+    const scoreList = players.map(pid => {
+      const isBest = bestIds.includes(pid);
+      const s = r.scores[pid].total;
+      return `<span ${isBest?'class="crown"':''}>${memberName(pid)} ${s}${isBest?' 👑':''}</span>`;
+    }).join('　');
+    const firstPhoto = r.photos[0];
+    const photoSrc = firstPhoto ? (firstPhoto.url || firstPhoto.dataUrl) : null;
+    const photoHTML = photoSrc
+      ? `<div class="round-photo" style="background-image:url(${photoSrc})"></div>`
+      : `<div class="round-photo empty">${r.photos.length > 0 ? '今日の一枚' : '写真なし'}</div>`;
+    return `
+      <div class="round-card" data-round-id="${r.id}">
+        <div class="round-header">
+          <div class="round-meta">
+            <div class="round-tags">
+              <span class="tag">${fmtDate(r.date)}</span>
+              <span class="tag tag-accent">${r.weather}</span>
+            </div>
+            <div class="round-course">${r.course}</div>
+          </div>
+          ${bestArr.length ? `<div class="round-best">
+            <div class="round-best-label">BEST</div>
+            <div class="round-best-score">${bestArr[0][1].total}</div>
+          </div>` : ''}
+        </div>
+        <div class="round-body">
+          <div class="round-scores">${scoreList}</div>
+          ${photoHTML}
+        </div>
+      </div>
+    `;
+  }).join('');
+  return `
+    <div class="view">
+      <div class="section-heading"><span>最近のラウンド</span><span style="text-transform:none; letter-spacing:0;">${sorted.length}件</span></div>
+      ${cards}
+    </div>
+  `;
+}
+
+/* ---------- RANKING ---------- */
+function renderRanking() {
+  const stats = computeAllStats();
+  const totalRounds = state.rounds.length;
+  const allScores = state.rounds.flatMap(r => Object.values(r.scores).map(s=>s.total));
+  const groupAvg = allScores.length ? (allScores.reduce((a,b)=>a+b,0)/allScores.length).toFixed(1) : '-';
+  const allTimeBest = allScores.length ? Math.min(...allScores) : '-';
+
+  const byAvg = [...stats].filter(s => s.rounds > 0).sort((a,b)=> a.avg - b.avg);
+  const byBest = [...stats].filter(s => s.best !== null).sort((a,b)=> a.best - b.best);
+  const byRounds = [...stats].sort((a,b)=> b.rounds - a.rounds);
+
+  let medalIdCounter = 0;
+  // Standard competition ranking: ties share the same rank, next rank skips ahead (1, 1, 3, 4 ...)
+  const rankWithTies = (arr, key) => {
+    let prev = undefined;
+    let prevRank = 0;
+    return arr.map((item, idx) => {
+      const v = item[key];
+      const rank = (idx > 0 && v === prev) ? prevRank : (idx + 1);
+      prev = v; prevRank = rank;
+      return { item, rank };
+    });
+  };
+  const rankRow = (s, rank, valKey, valSuffix='') => {
+    const rowClass = rank <= 3 ? `top-${rank}` : '';
+    const rankDisplay = rank <= 3 ? medalSvg(rank, medalIdCounter++) : `<div class="rank-num-plain">${rank}</div>`;
+    return `
+      <div class="ranking-row ${rowClass}">
+        ${rankDisplay}
+        <div class="rank-name">
+          <div class="user-avatar">${s.initial}</div>
+          ${s.name}
+        </div>
+        <div class="rank-score">${s[valKey]}${valSuffix}</div>
+        <div class="rank-rounds">${s.rounds}R</div>
+      </div>
+    `;
+  };
+
+  return `
+    <div class="view">
+      <div class="section-heading"><span>グループ全体</span></div>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-label">累計ラウンド</div><div class="kpi-value">${totalRounds}</div></div>
+        <div class="kpi-card"><div class="kpi-label">グループ平均</div><div class="kpi-value">${groupAvg}</div></div>
+        <div class="kpi-card"><div class="kpi-label">全体ベスト</div><div class="kpi-value">${allTimeBest}</div></div>
+        <div class="kpi-card"><div class="kpi-label">メンバー</div><div class="kpi-value">${state.members.length}</div></div>
+      </div>
+
+      <div class="section-heading"><span>平均スコア ランキング</span></div>
+      <div class="ranking-table">
+        <div class="ranking-row header"><div>順位</div><div>名前</div><div style="text-align:right;">平均</div><div style="text-align:right;">R数</div></div>
+        ${rankWithTies(byAvg, 'avg').map(({item, rank}) => rankRow(item, rank, 'avg')).join('')}
+        ${!byAvg.length ? '<div class="empty">データなし</div>' : ''}
+      </div>
+
+      <div class="section-heading"><span>ベストスコア</span></div>
+      <div class="ranking-table">
+        <div class="ranking-row header"><div>順位</div><div>名前</div><div style="text-align:right;">ベスト</div><div style="text-align:right;">R数</div></div>
+        ${rankWithTies(byBest, 'best').map(({item, rank}) => rankRow(item, rank, 'best')).join('')}
+        ${!byBest.length ? '<div class="empty">データなし</div>' : ''}
+      </div>
+
+      <div class="section-heading"><span>参加回数</span></div>
+      <div class="ranking-table">
+        <div class="ranking-row header"><div>順位</div><div>名前</div><div style="text-align:right;">参加</div><div style="text-align:right;">平均</div></div>
+        ${rankWithTies(byRounds, 'rounds').map(({item, rank}) => rankRow(item, rank, 'rounds','回')).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function computeAllStats() {
+  return state.members.map(m => {
+    const myScores = state.rounds
+      .filter(r => r.scores[m.id])
+      .map(r => ({ date: r.date, total: r.scores[m.id].total, course: r.course }));
+    const totals = myScores.map(s=>s.total);
+    return {
+      id: m.id, name: m.name, initial: m.initial,
+      rounds: myScores.length,
+      avg: totals.length ? (totals.reduce((a,b)=>a+b,0)/totals.length).toFixed(1) : '-',
+      best: totals.length ? Math.min(...totals) : null,
+      worst: totals.length ? Math.max(...totals) : null,
+      recent: myScores.sort((a,b)=> b.date.localeCompare(a.date)).slice(0, 8).reverse(),
+    };
+  });
+}
+
+/* ---------- INDIVIDUAL STATS ---------- */
+function renderStats() {
+  const stats = computeAllStats();
+  const selectedId = currentStatsPlayer || state.me;
+  const me = stats.find(s => s.id === selectedId) || stats[0];
+
+  const chips = state.members.map(m => `
+    <div class="player-pick-chip ${m.id===selectedId?'active':''}" data-player="${m.id}">${m.name}</div>
+  `).join('');
+
+  const maxScore = Math.max(...me.recent.map(r=>r.total), 100);
+  const minScore = Math.min(...me.recent.map(r=>r.total), 60);
+  const range = Math.max(maxScore - minScore, 10);
+  const bars = me.recent.length ? me.recent.map(r => {
+    const h = Math.max(((r.total - minScore + 5) / (range + 10)) * 80, 8);
+    return `<div class="recent-bar" style="height:${h}%;">
+      <div class="bar-label">${r.total}</div>
+      <div class="bar-date">${fmtDateShort(r.date)}</div>
+    </div>`;
+  }).join('') : '<div class="empty" style="width:100%; padding:20px;">記録なし</div>';
+
+  return `
+    <div class="view">
+      <div class="section-heading"><span>個人成績</span></div>
+      <div class="player-pick">${chips}</div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-label">参加ラウンド</div><div class="kpi-value">${me.rounds}</div></div>
+        <div class="kpi-card"><div class="kpi-label">平均スコア</div><div class="kpi-value">${me.avg}</div></div>
+        <div class="kpi-card"><div class="kpi-label">ベスト</div><div class="kpi-value">${me.best ?? '-'}</div></div>
+        <div class="kpi-card"><div class="kpi-label">ワースト</div><div class="kpi-value">${me.worst ?? '-'}</div></div>
+      </div>
+
+      <div class="stat-graph">
+        <div class="graph-title">直近の推移</div>
+        <div style="padding: 24px 0 22px;">
+          <div class="recent-rounds-mini">${bars}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+/* ---------- ROUND DETAIL ---------- */
+function renderDetail() {
+  const r = state.rounds.find(x => x.id === currentDetailId);
+  if (!r) return `<div class="empty">ラウンドが見つかりません</div>`;
+  const bestArr = bestOfRound(r);
+  const players = roundParticipants(r);
+
+  const scorecard = `
+    <div class="scorecard-wrap">
+      <table class="scorecard">
+        <thead>
+          <tr><th>HOLE</th>${Array.from({length:9},(_,i)=>`<th>${i+1}</th>`).join('')}<th>OUT</th>${Array.from({length:9},(_,i)=>`<th>${i+10}</th>`).join('')}<th>IN</th><th>計</th></tr>
+        </thead>
+        <tbody>
+          ${players.map(pid => {
+            const sc = r.scores[pid];
+            const out = sc.holes.slice(0,9).reduce((a,b)=>a+b,0);
+            const inS = sc.holes.slice(9,18).reduce((a,b)=>a+b,0);
+            return `<tr>
+              <td>${memberName(pid)}</td>
+              ${sc.holes.slice(0,9).map(h=>`<td>${h}</td>`).join('')}
+              <td class="total-cell">${out}</td>
+              ${sc.holes.slice(9,18).map(h=>`<td>${h}</td>`).join('')}
+              <td class="total-cell">${inS}</td>
+              <td class="total-cell">${sc.total}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const photosHTML = r.photos.length ? r.photos.map(p => `
+    <div class="detail-photo" style="${(p.url||p.dataUrl)?`background-image:url(${p.url||p.dataUrl})`:''}">
+      ${!(p.url||p.dataUrl) ? `<div style="display:flex; align-items:center; justify-content:center; height:100%; color: var(--text-muted); font-size: 11px;">${memberInitial(p.memberId)}の一枚</div>`:''}
+      ${p.caption ? `<div class="caption">${memberInitial(p.memberId)}: ${p.caption}</div>` : ''}
+    </div>
+  `).join('') : '<div class="empty" style="grid-column: 1/-1;">写真はまだありません</div>';
+
+  const commentsHTML = r.comments.length ? r.comments.map(c => `
+    <div class="comment-card">
+      <div class="comment-author">${memberName(c.memberId)}</div>
+      <div class="comment-text">${c.text}</div>
+    </div>
+  `).join('') : '<div class="empty">コメントはまだありません</div>';
+
+  return `
+    <div class="view">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 10px;">
+        <button class="btn btn-ghost" id="back-btn" style="padding: 6px 10px;">← 戻る</button>
+        <div style="display:flex; gap:6px;">
+          <button class="btn btn-secondary" id="edit-round-btn" style="padding: 6px 14px; font-size: 13px;">編集</button>
+          <button class="btn btn-ghost" id="delete-round-btn" style="padding: 6px 14px; font-size: 13px; color:#C0392B;">削除</button>
+        </div>
+      </div>
+      <div class="detail-hero">
+        <div class="round-tags" style="margin-bottom: 6px;">
+          <span class="tag">${fmtDate(r.date)}</span>
+          <span class="tag tag-accent">${r.weather}</span>
+        </div>
+        <div class="round-course" style="font-size: 20px;">${r.course}</div>
+        <div style="display:flex; gap:14px; margin-top: 14px; font-size: 13px; color: var(--text-secondary);">
+          <span>参加 ${players.length}名</span>
+          ${bestArr.length ? `<span>本日ベスト: <b style="color: var(--primary-dark);">${bestArr.map(([pid])=>memberName(pid)).join('・')} ${bestArr[0][1].total}</b></span>`:''}
+        </div>
+      </div>
+
+      <div class="section-heading"><span>スコアカード</span></div>
+      ${scorecard}
+
+      <div class="section-heading"><span>今日の一枚</span><span style="text-transform:none; letter-spacing:0;">${r.photos.length}枚</span></div>
+      <div class="detail-photos">${photosHTML}</div>
+
+      <div class="section-heading"><span>コメント</span></div>
+      ${commentsHTML}
+    </div>
+  `;
+}
+
+/* ---------- ADD ROUND ---------- */
+let draftRound = null;
+let editingRoundId = null;
+function initDraft(existingRound = null) {
+  if (existingRound) {
+    editingRoundId = existingRound.id;
+    draftRound = {
+      id: existingRound.id,
+      date: existingRound.date,
+      course: existingRound.course,
+      weather: existingRound.weather,
+      scores: JSON.parse(JSON.stringify(existingRound.scores)),
+      photos: existingRound.photos.map(p => ({...p})),
+      comments: existingRound.comments.map(c => ({...c})),
+      selectedMembers: Object.keys(existingRound.scores),
+    };
+  } else {
+    editingRoundId = null;
+    draftRound = {
+      id: 'r' + Date.now(),
+      date: new Date().toISOString().slice(0,10),
+      course: '',
+      weather: '晴れ',
+      scores: {},
+      photos: [],
+      comments: [],
+      selectedMembers: [state.me],
+    };
+    draftRound.scores[state.me] = { holes: Array(18).fill(0), total: 0 };
+  }
+}
+
+function renderAddRound() {
+  if (!draftRound) initDraft();
+  const d = draftRound;
+
+  const memberChips = state.members.map(m => `
+    <div class="member-chip ${d.selectedMembers.includes(m.id)?'selected':''}" data-member="${m.id}">
+      <span class="check">${d.selectedMembers.includes(m.id)?'✓':''}</span>
+      ${m.name}
+    </div>
+  `).join('');
+
+  const weatherOptions = ['晴れ','曇り','雨','風強','寒い','暑い'];
+  const weatherChips = weatherOptions.map(w =>
+    `<span class="weather-chip ${d.weather===w?'selected':''}" data-weather="${w}">${w}</span>`
+  ).join('');
+
+  const scorecardRows = d.selectedMembers.map(pid => {
+    const sc = d.scores[pid] || { holes: Array(18).fill(0), total: 0 };
+    const out = sc.holes.slice(0,9).reduce((a,b)=>a+b,0);
+    const inS = sc.holes.slice(9,18).reduce((a,b)=>a+b,0);
+    return `<tr data-player-row="${pid}">
+      <td>${memberName(pid)}</td>
+      ${sc.holes.slice(0,9).map((h,i)=>`<td><input class="hole-input" data-player="${pid}" data-hole="${i}" type="number" min="1" max="15" value="${h||''}"></td>`).join('')}
+      <td class="total-cell" data-out="${pid}">${out||'-'}</td>
+      ${sc.holes.slice(9,18).map((h,i)=>`<td><input class="hole-input" data-player="${pid}" data-hole="${i+9}" type="number" min="1" max="15" value="${h||''}"></td>`).join('')}
+      <td class="total-cell" data-in="${pid}">${inS||'-'}</td>
+      <td class="total-cell" data-total="${pid}">${sc.total||'-'}</td>
+    </tr>`;
+  }).join('');
+
+  const photoSlots = [0,1].map(idx => {
+    const p = d.photos[idx];
+    const previewSrc = p ? (p.previewDataUrl || p.url || p.dataUrl) : null;
+    return `<label class="photo-upload ${p?'has-image':''}" data-photo-idx="${idx}" style="${previewSrc?`background-image:url(${previewSrc})`:''}">
+      ${!p ? `<span class="photo-icon">📷</span><span>今日の一枚 #${idx+1}</span>` : `<span class="photo-remove" data-remove-photo="${idx}">×</span>`}
+      <input type="file" accept="image/*" data-photo-input="${idx}">
+    </label>`;
+  }).join('');
+
+  const isEdit = !!editingRoundId;
+  const myExistingComment = (d.comments.find(c => c.memberId === state.me) || {}).text || '';
+
+  return `
+    <div class="view">
+      <button class="btn btn-ghost" id="back-btn" style="margin-bottom: 10px; padding: 6px 10px;">← 戻る</button>
+      <div class="section-heading"><span>${isEdit ? 'ラウンドを編集' : '新しいラウンド'}</span></div>
+
+      <div class="form-row form-section">
+        <div>
+          <label class="form-label">日付</label>
+          <input class="form-input" type="date" id="draft-date" value="${d.date}">
+        </div>
+        <div>
+          <label class="form-label">天気</label>
+          <div class="weather-row">${weatherChips}</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <label class="form-label">コース名</label>
+        <input class="form-input" type="text" id="draft-course" value="${d.course}" placeholder="例：霞ヶ関カンツリー倶楽部">
+      </div>
+
+      <div class="form-section">
+        <label class="form-label">参加メンバー</label>
+        <div class="member-grid">${memberChips}</div>
+      </div>
+
+      <div class="form-section">
+        <label class="form-label">スコアカード（ホールごと打数）</label>
+        <div style="background: var(--primary-bg); border-radius: var(--radius-md); padding: 12px; margin-bottom: 10px; display:flex; align-items:center; gap:10px;">
+          <span style="font-size:22px;">📷</span>
+          <div style="flex:1;">
+            <div style="font-size:13px; font-weight:600; color: var(--primary-dark);">スコアカード写真からAIで読み取る (β)</div>
+            <div style="font-size:11px; color: var(--text-secondary);">デモではモックデータで動作を確認できます</div>
+          </div>
+          <button class="btn" id="ocr-trigger" style="padding: 8px 14px; font-size: 13px;">読み取り</button>
+        </div>
+        <div class="scorecard-wrap">
+          <table class="scorecard">
+            <thead>
+              <tr><th>名前</th>${Array.from({length:9},(_,i)=>`<th>${i+1}</th>`).join('')}<th>OUT</th>${Array.from({length:9},(_,i)=>`<th>${i+10}</th>`).join('')}<th>IN</th><th>計</th></tr>
+            </thead>
+            <tbody id="draft-scorecard">${scorecardRows}</tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <label class="form-label">今日の一枚（最大2枚）</label>
+        <div class="photo-row">${photoSlots}</div>
+        <div class="help-text">基本はLINEに、ここには厳選した1〜2枚を。</div>
+      </div>
+
+      <div class="form-section">
+        <label class="form-label">コメント（任意）</label>
+        <textarea class="form-textarea" id="draft-comment" placeholder="振り返り・感想を一言">${myExistingComment}</textarea>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top: 20px;">
+        <button class="btn btn-secondary" id="cancel-add">キャンセル</button>
+        <button class="btn btn-full" id="save-round">${isEdit ? '更新する' : '記録する'}</button>
+      </div>
+    </div>
+  `;
+}
+
+/* ---------- MEMBER EDIT ---------- */
+function renderMemberEdit() {
+  const m = state.members.find(x => x.id === currentEditMemberId);
+  if (!m) return `<div class="empty">メンバーが見つかりません</div>`;
+  const aliasesStr = (m.aliases || []).join('、');
+  const isMe = m.id === state.me;
+  return `
+    <div class="view">
+      <button class="btn btn-ghost" id="back-btn" style="margin-bottom: 10px; padding: 6px 10px;">← 戻る</button>
+      <div class="section-heading"><span>メンバーを編集</span></div>
+
+      <div style="text-align:center; margin-bottom: 20px;">
+        <div class="user-avatar" style="width: 60px; height: 60px; font-size: 22px; margin: 0 auto 8px;">${m.initial}</div>
+      </div>
+
+      <div class="form-section">
+        <label class="form-label">名前</label>
+        <input class="form-input" type="text" id="edit-name" value="${m.name}">
+      </div>
+
+      <div class="form-section">
+        <label class="form-label">よみがな（ひらがな推奨）</label>
+        <input class="form-input" type="text" id="edit-yomi" value="${m.yomi || ''}" placeholder="例：せきぐち けいた">
+        <div class="help-text">スコアカードに「セキグチ」「せきぐち」と書かれてもAIが認識できるようになります</div>
+      </div>
+
+      <div class="form-section">
+        <label class="form-label">スコアカード別名（カンマか読点で区切り）</label>
+        <input class="form-input" type="text" id="edit-aliases" value="${aliasesStr}" placeholder="例：関口、関、セキ、ケータ">
+        <div class="help-text">スコアカードに本人が書きがちな略称・あだ名を登録。複数可。</div>
+      </div>
+
+      <div class="form-section">
+        <label class="form-label">アバター文字（1文字）</label>
+        <input class="form-input" type="text" id="edit-initial" value="${m.initial}" maxlength="2" style="width: 80px;">
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top: 20px;">
+        <button class="btn btn-secondary" id="cancel-edit">キャンセル</button>
+        <button class="btn btn-full" id="save-member">保存する</button>
+      </div>
+
+      ${!isMe ? `<div style="margin-top: 24px;">
+        <button class="btn btn-ghost btn-full" id="delete-member" style="color:#C0392B;">このメンバーを削除</button>
+      </div>` : ''}
+    </div>
+  `;
+}
+
+/* ---------- SETTINGS ---------- */
+function renderSettings() {
+  const themeOptions = DEFAULT_THEMES.map(t => `
+    <div class="theme-option ${state.theme===t.id?'active':''}" data-theme-id="${t.id}">
+      <div class="theme-option-name"><span class="label">${t.id}</span>${t.name}</div>
+      <div class="theme-swatches">
+        ${t.colors.map(c=>`<div class="theme-swatch" style="background:${c}"></div>`).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  const memberRows = state.members.map(m => `
+    <div class="member-list-row member-list-row-clickable" data-edit-member="${m.id}">
+      <div class="user-avatar">${m.initial}</div>
+      <div style="flex:1;">
+        <div>${m.name}</div>
+        ${m.yomi ? `<div style="font-size:11px; color:var(--text-muted);">${m.yomi}</div>`:''}
+      </div>
+      ${m.id===state.me ? '<div class="role">自分</div>':'<div class="role">編集 ›</div>'}
+    </div>
+  `).join('');
+
+  return `
+    <div class="view">
+      <div class="section-heading"><span>テーマ（着せ替え）</span></div>
+      <div class="theme-grid">${themeOptions}</div>
+      <div class="help-text" style="margin-top:8px;">どのデザインも同じ機能で動きます。気分や好みで切り替えてください。</div>
+
+      <div class="section-heading"><span>自分のアカウント</span></div>
+      <div class="member-list">
+        <div class="member-list-row">
+          <div class="user-avatar">${memberInitial(state.me)}</div>
+          <div>${memberName(state.me)}</div>
+          <div class="role">変更</div>
+        </div>
+      </div>
+
+      <div class="section-heading"><span>メンバー一覧（${state.members.length}名）</span></div>
+      <div class="member-list">${memberRows}</div>
+      <button class="btn btn-secondary btn-full" id="add-member" style="margin-top: 10px;">＋ メンバーを追加</button>
+
+      <div class="section-heading"><span>データ管理</span></div>
+      <div style="display:flex; gap:10px; flex-wrap: wrap;">
+        <button class="btn btn-secondary" id="export-data">JSONエクスポート</button>
+      </div>
+      <div class="help-text" style="margin-top:8px;">全員が同じデータを共有しています（Firebase上に保存）。写真もアップロードした人だけでなく、全メンバーが閲覧できます。</div>
+
+      <div class="divider"></div>
+      <div class="help-text">Firebase版 v1.0 / ${state.rounds.length}ラウンド記録中 / ${state.members.length}名のメンバー</div>
+    </div>
+  `;
+}
+
+/* =========================================================
+   EVENT HANDLERS
+   ========================================================= */
+function attachHandlers() {
+  // round card click
+  document.querySelectorAll('[data-round-id]').forEach(el => {
+    el.onclick = () => setView('detail', { detailId: el.dataset.roundId });
+  });
+  // back: route depending on current view
+  const back = document.getElementById('back-btn');
+  if (back) back.onclick = () => {
+    if (currentView === 'member-edit') setView('settings');
+    else if (currentView === 'add-round' && editingRoundId) setView('detail', { detailId: editingRoundId });
+    else setView('timeline');
+  };
+
+  // edit / delete in detail view
+  const editBtn = document.getElementById('edit-round-btn');
+  if (editBtn) editBtn.onclick = () => {
+    const round = state.rounds.find(r => r.id === currentDetailId);
+    if (round) {
+      initDraft(round);
+      setView('add-round');
+    }
+  };
+  const deleteBtn = document.getElementById('delete-round-btn');
+  if (deleteBtn) deleteBtn.onclick = async () => {
+    const round = state.rounds.find(r => r.id === currentDetailId);
+    if (!round) return;
+    if (!confirm(`「${round.course}（${fmtDate(round.date)}）」を削除しますか？元に戻せません。`)) return;
+    try {
+      // delete associated photos from Storage first
+      for (const p of (round.photos || [])) {
+        if (p.path) {
+          try { await deleteObject(storageRef(storage, p.path)); } catch(e) { /* ignore */ }
+        }
+      }
+      await deleteDoc(doc(db, 'rounds', currentDetailId));
+      setView('timeline');
+    } catch(err) {
+      console.error(err);
+      alert('削除に失敗しました：' + (err.message || err));
+    }
+  };
+
+  // stats player picker
+  document.querySelectorAll('[data-player]').forEach(el => {
+    if (el.dataset.player && !el.dataset.hole) {
+      el.onclick = () => setView('stats', { playerId: el.dataset.player });
+    }
+  });
+
+  // settings: theme
+  document.querySelectorAll('[data-theme-id]').forEach(el => {
+    el.onclick = () => { applyTheme(el.dataset.themeId); render(); };
+  });
+  const exportBtn = document.getElementById('export-data');
+  if (exportBtn) exportBtn.onclick = exportData;
+  const resetBtn = document.getElementById('reset-data');
+  if (resetBtn) resetBtn.onclick = () => {
+    alert('Firebase版では「サンプルデータに戻す」は無効です。データは全員で共有されているため、個別のラウンド削除で対応してください。');
+  };
+  const addMember = document.getElementById('add-member');
+  if (addMember) addMember.onclick = async () => {
+    const name = prompt('追加するメンバーの名前を入力してください');
+    if (!name) return;
+    const initial = name.trim().charAt(0);
+    try {
+      const ref = await addDoc(collection(db, 'members'), {
+        name: name.trim(), initial, yomi: '', aliases: []
+      });
+      setView('member-edit', { memberId: ref.id });
+    } catch(err) {
+      alert('追加に失敗しました：' + (err.message || err));
+    }
+  };
+
+  // member edit: open edit screen on row click
+  document.querySelectorAll('[data-edit-member]').forEach(el => {
+    el.onclick = () => setView('member-edit', { memberId: el.dataset.editMember });
+  });
+
+  // member edit form handlers
+  if (currentView === 'member-edit') attachMemberEditHandlers();
+
+  // add-round handlers
+  if (currentView === 'add-round') attachAddRoundHandlers();
+}
+
+function attachMemberEditHandlers() {
+  const m = state.members.find(x => x.id === currentEditMemberId);
+  if (!m) return;
+  const saveBtn = document.getElementById('save-member');
+  if (saveBtn) saveBtn.onclick = async () => {
+    const name = (document.getElementById('edit-name').value || '').trim();
+    const yomi = (document.getElementById('edit-yomi').value || '').trim();
+    const aliasesStr = (document.getElementById('edit-aliases').value || '').trim();
+    const initial = (document.getElementById('edit-initial').value || '').trim() || name.charAt(0);
+    if (!name) { alert('名前を入力してください'); return; }
+    const aliases = aliasesStr.split(/[,、,\s]+/).map(s=>s.trim()).filter(Boolean);
+    saveBtn.disabled = true;
+    try {
+      await updateDoc(doc(db, 'members', m.id), { name, yomi, aliases, initial });
+      setView('settings');
+    } catch(err) {
+      alert('保存に失敗しました：' + (err.message || err));
+      saveBtn.disabled = false;
+    }
+  };
+  const cancelBtn = document.getElementById('cancel-edit');
+  if (cancelBtn) cancelBtn.onclick = () => setView('settings');
+  const delBtn = document.getElementById('delete-member');
+  if (delBtn) delBtn.onclick = async () => {
+    if (state.members.length <= 1) { alert('最低1名は必要です'); return; }
+    if (!confirm(`「${m.name}」を削除しますか？\n（このメンバーが参加しているラウンドのスコアは残ります）`)) return;
+    try {
+      await deleteDoc(doc(db, 'members', m.id));
+      setView('settings');
+    } catch(err) {
+      alert('削除に失敗しました：' + (err.message || err));
+    }
+  };
+}
+
+function attachAddRoundHandlers() {
+  const d = draftRound;
+
+  // date
+  const dateEl = document.getElementById('draft-date');
+  if (dateEl) dateEl.onchange = (e) => { d.date = e.target.value; };
+
+  // weather
+  document.querySelectorAll('[data-weather]').forEach(el => {
+    el.onclick = () => {
+      d.weather = el.dataset.weather;
+      document.querySelectorAll('[data-weather]').forEach(x => x.classList.toggle('selected', x.dataset.weather===d.weather));
+    };
+  });
+
+  // course
+  const courseEl = document.getElementById('draft-course');
+  if (courseEl) courseEl.oninput = (e) => { d.course = e.target.value; };
+
+  // member toggle
+  document.querySelectorAll('[data-member]').forEach(el => {
+    el.onclick = () => {
+      const mid = el.dataset.member;
+      const idx = d.selectedMembers.indexOf(mid);
+      if (idx >= 0) {
+        if (d.selectedMembers.length === 1) { alert('最低1名は必要です'); return; }
+        d.selectedMembers.splice(idx,1);
+        delete d.scores[mid];
+      } else {
+        d.selectedMembers.push(mid);
+        d.scores[mid] = { holes: Array(18).fill(0), total: 0 };
+      }
+      // re-render only the form
+      document.getElementById('main-content').innerHTML = renderAddRound();
+      attachHandlers();
+    };
+  });
+
+  // hole inputs
+  document.querySelectorAll('.hole-input').forEach(input => {
+    input.oninput = (e) => {
+      const pid = e.target.dataset.player;
+      const hole = parseInt(e.target.dataset.hole);
+      const val = parseInt(e.target.value) || 0;
+      d.scores[pid].holes[hole] = val;
+      const total = d.scores[pid].holes.reduce((a,b)=>a+b,0);
+      const out = d.scores[pid].holes.slice(0,9).reduce((a,b)=>a+b,0);
+      const inS = d.scores[pid].holes.slice(9,18).reduce((a,b)=>a+b,0);
+      d.scores[pid].total = total;
+      const outEl = document.querySelector(`[data-out="${pid}"]`);
+      const inEl = document.querySelector(`[data-in="${pid}"]`);
+      const totalEl = document.querySelector(`[data-total="${pid}"]`);
+      if (outEl) outEl.textContent = out || '-';
+      if (inEl) inEl.textContent = inS || '-';
+      if (totalEl) totalEl.textContent = total || '-';
+    };
+  });
+
+  // photo uploads (Firebase Storage: keep File object, generate preview)
+  document.querySelectorAll('[data-photo-input]').forEach(input => {
+    input.onchange = (e) => {
+      const idx = parseInt(input.dataset.photoInput);
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const previewDataUrl = ev.target.result;
+        const caption = prompt('一言キャプション（任意）') || '';
+        d.photos[idx] = {
+          memberId: state.me,
+          file,
+          previewDataUrl,
+          caption,
+          // url/path will be set after upload during save
+        };
+        document.getElementById('main-content').innerHTML = renderAddRound();
+        attachHandlers();
+      };
+      reader.readAsDataURL(file);
+    };
+  });
+  document.querySelectorAll('[data-remove-photo]').forEach(el => {
+    el.onclick = (e) => {
+      e.preventDefault(); e.stopPropagation();
+      const idx = parseInt(el.dataset.removePhoto);
+      d.photos[idx] = null;
+      d.photos = d.photos.filter(p=>p);
+      document.getElementById('main-content').innerHTML = renderAddRound();
+      attachHandlers();
+    };
+  });
+
+  // save (Firebase: upload photos to Storage, write doc to Firestore)
+  const saveBtn = document.getElementById('save-round');
+  if (saveBtn) saveBtn.onclick = async () => {
+    if (!d.course.trim()) { alert('コース名を入力してください'); return; }
+    if (!d.selectedMembers.length) { alert('参加メンバーを選んでください'); return; }
+    saveBtn.disabled = true;
+    saveBtn.textContent = '保存中…';
+
+    try {
+      const targetRoundId = editingRoundId || crypto.randomUUID().replace(/-/g,'').slice(0,16);
+      // Upload new photo files; keep already-uploaded ones as-is
+      const finalPhotos = [];
+      const filteredPhotos = d.photos.filter(p => p);
+      for (let i = 0; i < filteredPhotos.length; i++) {
+        const p = filteredPhotos[i];
+        if (p.file) {
+          const ext = (p.file.name || 'jpg').split('.').pop().toLowerCase().slice(0,4) || 'jpg';
+          const path = `rounds/${targetRoundId}/photo_${i}_${Date.now()}.${ext}`;
+          const sref = storageRef(storage, path);
+          await uploadBytes(sref, p.file);
+          const url = await getDownloadURL(sref);
+          finalPhotos.push({
+            memberId: p.memberId || state.me,
+            url, path,
+            caption: p.caption || '',
+          });
+        } else if (p.url) {
+          finalPhotos.push({
+            memberId: p.memberId, url: p.url, path: p.path || '', caption: p.caption || ''
+          });
+        }
+      }
+
+      const commentText = document.getElementById('draft-comment').value.trim();
+      const otherComments = (d.comments || []).filter(c => c.memberId !== state.me);
+
+      const newRound = {
+        date: d.date,
+        course: d.course.trim(),
+        weather: d.weather,
+        scores: {},
+        photos: finalPhotos,
+        comments: otherComments.slice(),
+        updatedAt: new Date().toISOString(),
+      };
+      d.selectedMembers.forEach(mid => {
+        const sc = d.scores[mid] || { holes: Array(18).fill(0), total: 0 };
+        newRound.scores[mid] = { holes: sc.holes, total: sc.holes.reduce((a,b)=>a+b,0) };
+      });
+      if (commentText) newRound.comments.push({ memberId: state.me, text: commentText });
+
+      if (!editingRoundId) newRound.createdAt = new Date().toISOString();
+
+      await setDoc(doc(db, 'rounds', targetRoundId), newRound);
+
+      const wasEditing = !!editingRoundId;
+      draftRound = null; editingRoundId = null;
+      if (wasEditing) setView('detail', { detailId: targetRoundId });
+      else setView('timeline');
+    } catch(err) {
+      console.error(err);
+      alert('保存に失敗しました：' + (err.message || err));
+      saveBtn.disabled = false;
+      saveBtn.textContent = editingRoundId ? '更新する' : '記録する';
+    }
+  };
+
+  const cancelBtn = document.getElementById('cancel-add');
+  if (cancelBtn) cancelBtn.onclick = () => {
+    if (confirm('入力内容を破棄しますか？')) {
+      const wasEditing = editingRoundId;
+      draftRound = null; editingRoundId = null;
+      if (wasEditing) { setView('detail', { detailId: wasEditing }); }
+      else { setView('timeline'); }
+    }
+  };
+
+  // OCR trigger
+  const ocrBtn = document.getElementById('ocr-trigger');
+  if (ocrBtn) ocrBtn.onclick = () => startMockOcrFlow();
+}
+
+/* =========================================================
+   OCR MOCK FLOW
+   ========================================================= */
+let ocrResult = null;
+let ocrAssignments = null; // [{ rawName, memberId, scores, isNewMember }]
+
+function startMockOcrFlow() {
+  // If Worker URL is configured, use real Claude API; otherwise fall back to mock
+  if (OCR_WORKER_URL) {
+    pickPhotoAndCallWorker();
+  } else {
+    // Mock mode: skip file picker, show fake recognition
+    showOcrProgress(true);
+  }
+}
+
+function pickPhotoAndCallWorker() {
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = 'image/*';
+  fileInput.style.display = 'none';
+  document.body.appendChild(fileInput);
+  fileInput.onchange = async () => {
+    const file = fileInput.files[0];
+    document.body.removeChild(fileInput);
+    if (!file) return;
+    showOcrProgress(false);
+    try {
+      const base64 = await fileToBase64(file);
+      const resp = await fetch(OCR_WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          imageBase64: base64,
+          mediaType: file.type || 'image/jpeg',
+        }),
+      });
+      if (!resp.ok) {
+        const err = await resp.json().catch(()=>({}));
+        throw new Error(err.error || `HTTP ${resp.status}`);
+      }
+      const data = await resp.json();
+      processOcrResult(data);
+    } catch (err) {
+      console.error('OCR error', err);
+      closeOcrOverlay();
+      alert('スコアカードの読み取りに失敗しました：' + (err.message || err) + '\n\n手入力でお試しください。');
+    }
+  };
+  fileInput.click();
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result;
+      // Strip "data:image/jpeg;base64," prefix
+      const base64 = result.split(',')[1] || result;
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function showOcrProgress(useMock) {
+  closeOcrOverlay();
+  const overlay = document.createElement('div');
+  overlay.className = 'ocr-overlay';
+  overlay.id = 'ocr-overlay';
+  overlay.innerHTML = `
+    <div class="ocr-modal">
+      <div class="ocr-progress">
+        <div class="ocr-spinner"></div>
+        <div style="font-size: 15px; font-weight: 600; margin-bottom: 4px;">AIがスコアカードを解析中…</div>
+        <div style="font-size: 12px; color: var(--text-secondary);">${useMock ? '（モックデータで動作確認中）' : '名前と打数を認識しています'}</div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  if (useMock) {
+    setTimeout(() => processOcrResult(mockOcrRecognition()), 1400);
+  }
+}
+
+function processOcrResult(data) {
+  ocrResult = data;
+  ocrAssignments = (data.players || []).map(p => {
+    const match = matchMember(p.rawName, state.members);
+    return {
+      rawName: p.rawName,
+      scores: p.scores,
+      memberId: match.member ? match.member.id : '',
+      reason: match.reason,
+      confidence: match.confidence || 'none',
+      isNewMember: false,
+      newMemberName: '',
+    };
+  });
+  showOcrReview();
+}
+
+function showOcrReview() {
+  closeOcrOverlay();
+  const overlay = document.createElement('div');
+  overlay.className = 'ocr-overlay';
+  overlay.id = 'ocr-overlay';
+
+  const playerRows = ocrAssignments.map((a, idx) => {
+    const matched = a.memberId ? state.members.find(m=>m.id===a.memberId) : null;
+    const total = a.scores.reduce((x,y)=>x+y,0);
+    const confClass = a.confidence === 'high' ? 'high' : (a.confidence === 'low' ? 'low' : 'none');
+
+    const memberOptions = state.members.map(m =>
+      `<option value="${m.id}" ${m.id===a.memberId?'selected':''}>${m.name}</option>`
+    ).join('');
+
+    return `
+      <div class="ocr-result-row">
+        <div class="ocr-raw-name">${a.rawName}</div>
+        <div>
+          <select class="form-select" data-ocr-idx="${idx}" style="margin-bottom: 4px;">
+            <option value="" ${!a.memberId && !a.isNewMember?'selected':''}>— 選択してください —</option>
+            ${memberOptions}
+            <option value="__new__" ${a.isNewMember?'selected':''}>+ 新しいメンバーとして登録</option>
+          </select>
+          ${a.isNewMember ? `<input class="form-input" type="text" data-ocr-newname="${idx}" placeholder="新メンバーの名前" value="${a.newMemberName||a.rawName}" style="margin-bottom: 4px;">` : ''}
+          <div class="ocr-match-info ${confClass}">
+            ${a.memberId ? `✓ ${a.reason}` : (a.isNewMember ? '＋ 新規登録予定' : '? 未マッチ - 選択するか新規登録してください')}
+          </div>
+          <div class="ocr-scores-preview">
+            OUT ${a.scores.slice(0,9).join(' ')} = ${a.scores.slice(0,9).reduce((x,y)=>x+y,0)}
+            IN ${a.scores.slice(9).join(' ')} = ${a.scores.slice(9).reduce((x,y)=>x+y,0)}
+            合計 <b style="color: var(--primary-dark);">${total}</b>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  overlay.innerHTML = `
+    <div class="ocr-modal">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px;">
+        <div>
+          <div style="font-size: 16px; font-weight: 600;">AIが読み取りました</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">名前のマッチングを確認してください</div>
+        </div>
+        <button class="btn btn-ghost" id="ocr-close" style="padding: 6px 10px; font-size: 18px;">×</button>
+      </div>
+
+      <div style="background: var(--surface-2); border-radius: var(--radius-md); padding: 10px 12px; margin-bottom: 12px; font-size: 12px;">
+        <div><b>コース：</b>${ocrResult.course}</div>
+        <div><b>日付：</b>${ocrResult.date}　<b>天気：</b>${ocrResult.weather}</div>
+      </div>
+
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); margin-bottom: 16px;">
+        ${playerRows}
+      </div>
+
+      <div style="display:flex; gap:10px;">
+        <button class="btn btn-secondary" id="ocr-cancel" style="flex:1;">キャンセル</button>
+        <button class="btn" id="ocr-apply" style="flex:2;">適用してフォームに反映</button>
+      </div>
+
+      <div class="help-text" style="margin-top: 10px;">
+        ${OCR_WORKER_URL ? '※ Claude AIがスコアカード写真から読み取った内容です。誤読がある場合はドロップダウンや手入力で修正してください。' : '※ デモモード（モックデータ）：実際の写真は使われていません。Worker URLを設定すると実写真の読み取りができます。'}
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  // close handlers
+  document.getElementById('ocr-close').onclick = closeOcrOverlay;
+  document.getElementById('ocr-cancel').onclick = closeOcrOverlay;
+
+  // change member selection
+  overlay.querySelectorAll('[data-ocr-idx]').forEach(sel => {
+    sel.onchange = (e) => {
+      const idx = parseInt(e.target.dataset.ocrIdx);
+      const v = e.target.value;
+      if (v === '__new__') {
+        ocrAssignments[idx].isNewMember = true;
+        ocrAssignments[idx].memberId = '';
+        ocrAssignments[idx].newMemberName = ocrAssignments[idx].rawName;
+      } else {
+        ocrAssignments[idx].isNewMember = false;
+        ocrAssignments[idx].memberId = v;
+        ocrAssignments[idx].reason = v ? '手動選択' : '未選択';
+        ocrAssignments[idx].confidence = v ? 'high' : 'none';
+      }
+      showOcrReview(); // re-render
+    };
+  });
+  overlay.querySelectorAll('[data-ocr-newname]').forEach(inp => {
+    inp.oninput = (e) => {
+      const idx = parseInt(e.target.dataset.ocrNewname);
+      ocrAssignments[idx].newMemberName = e.target.value;
+    };
+  });
+
+  // apply
+  document.getElementById('ocr-apply').onclick = () => applyOcrToDraft();
+}
+
+async function applyOcrToDraft() {
+  // validate
+  for (const a of ocrAssignments) {
+    if (!a.memberId && !a.isNewMember) {
+      alert(`「${a.rawName}」のメンバーを選んでください`);
+      return;
+    }
+    if (a.isNewMember && !(a.newMemberName||'').trim()) {
+      alert(`「${a.rawName}」に対応する新メンバーの名前を入力してください`);
+      return;
+    }
+  }
+  const applyBtn = document.getElementById('ocr-apply');
+  if (applyBtn) { applyBtn.disabled = true; applyBtn.textContent = '登録中…'; }
+  try {
+    // register new members in Firestore
+    for (const a of ocrAssignments) {
+      if (a.isNewMember) {
+        const nm = a.newMemberName.trim();
+        const ref = await addDoc(collection(db, 'members'), {
+          name: nm, initial: nm.charAt(0), yomi: '', aliases: [a.rawName]
+        });
+        a.memberId = ref.id;
+      }
+    }
+
+    // apply to draftRound
+    if (!draftRound) initDraft();
+    draftRound.course = ocrResult.course || draftRound.course;
+    draftRound.weather = ocrResult.weather || draftRound.weather;
+    draftRound.date = ocrResult.date || draftRound.date;
+    draftRound.selectedMembers = ocrAssignments.map(a => a.memberId);
+    draftRound.scores = {};
+    ocrAssignments.forEach(a => {
+      draftRound.scores[a.memberId] = {
+        holes: a.scores.slice(),
+        total: a.scores.reduce((x,y)=>x+y,0),
+      };
+    });
+
+    closeOcrOverlay();
+    document.getElementById('main-content').innerHTML = renderAddRound();
+    attachHandlers();
+  } catch(err) {
+    alert('適用に失敗しました：' + (err.message || err));
+    if (applyBtn) { applyBtn.disabled = false; applyBtn.textContent = '適用してフォームに反映'; }
+  }
+}
+
+function closeOcrOverlay() {
+  const ov = document.getElementById('ocr-overlay');
+  if (ov) ov.remove();
+}
+
+function exportData() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `golf_data_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* =========================================================
+   NAV / FAB / LOGIN
+   ========================================================= */
+document.querySelectorAll('.nav-item').forEach(b => {
+  b.onclick = () => setView(b.dataset.view);
+});
+document.getElementById('fab-add').onclick = () => {
+  draftRound = null;
+  setView('add-round');
+};
+
+// Screen management - shows app if signed in AND session flag is set
+async function showAppScreen() {
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  try { await maybeSeedInitialData(); } catch(e) { console.error('seed error', e); }
+  if (!membersUnsub) startListeners();
+}
+function showLoginScreen() {
+  document.getElementById('login-screen').classList.remove('hidden');
+  document.getElementById('app').classList.add('hidden');
+}
+
+// Login - check password locally, then signInAnonymously
+async function tryLogin() {
+  const input = document.getElementById('login-input');
+  const err = document.getElementById('login-error');
+  if (input.value !== PASSWORD) {
+    err.style.color = '#C0392B';
+    err.textContent = '合い言葉が違います';
+    input.value = '';
+    return;
+  }
+  err.style.color = 'var(--text-secondary)';
+  err.textContent = 'ログイン中…';
+  try {
+    if (!auth.currentUser) {
+      await signInAnonymously(auth);
+    }
+    sessionStorage.setItem(SESSION_KEY, '1');
+    await showAppScreen();
+  } catch(e) {
+    err.style.color = '#C0392B';
+    err.textContent = 'ログインエラー：' + (e.message || e);
+  }
+}
+document.getElementById('login-btn').onclick = tryLogin;
+document.getElementById('login-input').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') tryLogin();
+});
+
+/* =========================================================
+   INIT
+   ========================================================= */
+loadPrefs();
+applyTheme(state.theme || 'E');
+
+onAuthStateChanged(auth, async (user) => {
+  const sessionOK = sessionStorage.getItem(SESSION_KEY) === '1';
+  if (user && sessionOK) {
+    await showAppScreen();
+  } else {
+    showLoginScreen();
+  }
+});
+
+// Auto-restore: if we have the session flag from a previous load in this tab,
+// silently sign in (Firebase Auth state may have been cleared)
+if (sessionStorage.getItem(SESSION_KEY) === '1' && !auth.currentUser) {
+  signInAnonymously(auth).catch(e => {
+    console.error('auto auth failed', e);
+    sessionStorage.removeItem(SESSION_KEY);
+  });
+}
+
+function init() {
+  applyTheme(state.theme || 'E');
+  const ha = document.getElementById('header-avatar');
+  if (ha) ha.textContent = state.me ? memberInitial(state.me) : '?';
+  render();
+}
+</script>
+
+</body>
+</html>
