@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>後継者研修ゴルフ - デモ</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>後継者研修ゴルフ</title>
 <style>
 /* =========================================================
    THEME SYSTEM - 5 patterns via CSS variables
@@ -431,6 +434,31 @@ a { color: var(--primary); text-decoration: none; }
   font-size: 13px;
   background: var(--surface);
   border-radius: var(--radius-md);
+}
+/* Compact mode for OUT/IN-only scorecards - fits on mobile without scrolling */
+.scorecard.scorecard-compact {
+  min-width: 100%;
+  table-layout: fixed;
+}
+.scorecard.scorecard-compact td:first-child,
+.scorecard.scorecard-compact th:first-child {
+  min-width: 0;
+  width: 38%;
+  position: static;
+}
+.scorecard.scorecard-compact th:not(:first-child),
+.scorecard.scorecard-compact td:not(:first-child) {
+  width: 20.5%;
+}
+.scorecard.scorecard-compact select.player-swap-select {
+  min-width: 0;
+  width: 100%;
+  font-size: 12px;
+  padding: 4px 2px;
+}
+.scorecard.scorecard-compact input.hole-input {
+  width: 100%;
+  max-width: 56px;
 }
 .scorecard th, .scorecard td {
   border: 1px solid var(--border);
@@ -895,6 +923,7 @@ a { color: var(--primary); text-decoration: none; }
     <div class="login-error" id="login-error"></div>
     <button class="btn btn-full" id="login-btn" style="margin-top: 12px;">入室</button>
     <div class="help-text" style="margin-top: 16px;">合い言葉を仲間にLINEで共有してください</div>
+    <a href="./manual.html" target="_blank" rel="noopener" style="display:inline-block; margin-top: 14px; font-size: 13px; color: var(--primary-dark); text-decoration: underline;">📖 使い方マニュアルを見る</a>
   </div>
 </div>
 
@@ -1532,7 +1561,7 @@ function renderDetail() {
 
   const scorecard = allOutInOnly
     ? `<div class="scorecard-wrap">
-        <table class="scorecard">
+        <table class="scorecard scorecard-compact">
           <thead><tr><th>名前</th>${sortableHeader('out','OUT')}${sortableHeader('in','IN')}${sortableHeader('total','計')}</tr></thead>
           <tbody>
             ${normalizedScores.map(({pid, sc}) => `<tr>
@@ -1763,7 +1792,7 @@ function renderAddRound() {
         </div>
 
         <div class="scorecard-wrap">
-          <table class="scorecard">
+          <table class="scorecard ${d.outInOnly?'scorecard-compact':''}">
             <thead>${scorecardHeader}</thead>
             <tbody id="draft-scorecard">${scorecardRows}</tbody>
           </table>
@@ -1883,6 +1912,16 @@ function renderSettings() {
       <div class="member-list">${memberRows}</div>
       <button class="btn btn-secondary btn-full" id="add-member" style="margin-top: 10px;">＋ メンバーを追加</button>
 
+      <div class="section-heading"><span>ヘルプ</span></div>
+      <a href="./manual.html" target="_blank" rel="noopener" class="member-list-row member-list-row-clickable" style="text-decoration:none; color:inherit; display:flex; padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);">
+        <div style="width:32px; height:32px; background: var(--primary-bg); color: var(--primary-dark); border-radius: var(--radius-md); display:flex; align-items:center; justify-content:center; font-size: 16px; margin-right: 12px;">📖</div>
+        <div style="flex:1;">
+          <div>使い方マニュアル</div>
+          <div style="font-size:11px; color:var(--text-muted);">機能の使い方とよくある質問</div>
+        </div>
+        <div class="role">開く ›</div>
+      </a>
+
       <div class="section-heading"><span>データ管理</span></div>
       <div style="display:flex; gap:10px; flex-wrap: wrap;">
         <button class="btn btn-secondary" id="export-data">JSONエクスポート</button>
@@ -1890,7 +1929,7 @@ function renderSettings() {
       <div class="help-text" style="margin-top:8px;">全員が同じデータを共有しています（Firebase上に保存）。写真もアップロードした人だけでなく、全メンバーが閲覧できます。</div>
 
       <div class="divider"></div>
-      <div class="help-text">Firebase版 v1.0 / ${state.rounds.length}ラウンド記録中 / ${state.members.length}名のメンバー</div>
+      <div class="help-text">Firebase版 v1.3 (2026-05-29) / ${state.rounds.length}ラウンド記録中 / ${state.members.length}名のメンバー</div>
     </div>
   `;
 }

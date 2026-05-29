@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache">
+<title>後継者研修ゴルフ - 使い方マニュアル</title>
+<style>
+:root {
+  --bg: #FAFAF8;
+  --surface: #FFFFFF;
+  --surface-2: #F5F5F2;
+  --primary: #1D9E75;
+  --primary-dark: #0F6E56;
+  --primary-bg: #EAF3DE;
+  --accent: #EF9F27;
+  --accent-bg: #FFF4DC;
+  --text: #1A1A1A;
+  --text-secondary: #555;
+  --text-muted: #888;
+  --border: #E5E5E5;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px 16px 48px;
+}
+
+/* ヒーロー */
+.hero {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  padding: 24px 22px;
+  border-radius: 16px;
+  margin-bottom: 18px;
+}
+.hero h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.hero p { font-size: 13px; opacity: 0.92; }
+
+/* 3ステップカード */
+.quickstart {
+  background: var(--accent-bg);
+  border: 2px solid var(--accent);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+}
+.quickstart-title {
+  font-weight: 700; font-size: 15px;
+  color: #8B5A00;
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.quickstart-steps {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.quickstart-step {
+  background: white;
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 14px;
+}
+.quickstart-step .num {
+  width: 28px; height: 28px;
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* セクション */
+section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+}
+h2 {
+  font-size: 17px; font-weight: 700;
+  color: var(--primary-dark);
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+h2 .icon {
+  width: 36px; height: 36px;
+  background: var(--primary-bg);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+h3 { font-size: 14px; font-weight: 700; margin: 14px 0 6px; color: var(--text); }
+
+p { margin-bottom: 8px; }
+ul, ol { padding-left: 20px; }
+li { margin-bottom: 4px; }
+
+code {
+  background: var(--surface-2);
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-family: "SF Mono", "Monaco", "Consolas", monospace;
+  font-size: 13px;
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+.tip {
+  background: var(--primary-bg);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin: 8px 0;
+  display: flex; gap: 8px;
+}
+.tip::before { content: "💡"; flex-shrink: 0; }
+
+.warn {
+  background: #FEF3C7;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin: 8px 0;
+  display: flex; gap: 8px;
+}
+.warn::before { content: "⚠️"; flex-shrink: 0; }
+
+.step-list {
+  list-style: none; padding-left: 0;
+  counter-reset: step;
+}
+.step-list > li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 36px;
+  padding-bottom: 10px;
+  margin-bottom: 0;
+}
+.step-list > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0; top: 0;
+  width: 26px; height: 26px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px;
+}
+
+.btn-demo {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 2px;
+}
+.btn-demo.accent { background: var(--accent); }
+.btn-demo.ghost { background: var(--surface-2); color: var(--text); }
+
+.faq-q {
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-top: 14px;
+  margin-bottom: 4px;
+}
+.faq-q::before { content: "Q. "; color: var(--accent); font-weight: 700; }
+.faq-a {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.faq-a::before { content: "A. "; color: var(--primary); font-weight: 700; }
+
+.toc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 18px;
+}
+.toc-title { font-size: 12px; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.toc a { display: block; padding: 6px 0; color: var(--text); text-decoration: none; font-size: 14px; border-bottom: 1px solid var(--border); }
+.toc a:last-child { border-bottom: none; }
+.toc a:hover { color: var(--primary); }
+.toc a::before { content: "→ "; color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="hero">
+  <h1>⛳ 後継者研修ゴルフ</h1>
+  <p>使い方マニュアル（初めての方向け）</p>
+</div>
+
+<div class="quickstart">
+  <div class="quickstart-title">🚀 まずはこの3ステップで使えます</div>
+  <div class="quickstart-steps">
+    <div class="quickstart-step">
+      <div class="num">1</div>
+      <div>LINEで送られたURLを開いて、<b>合い言葉</b>を入力</div>
+    </div>
+    <div class="quickstart-step">
+      <div class="num">2</div>
+      <div>「あなたは誰ですか？」で<b>自分の名前</b>を選ぶ</div>
+    </div>
+    <div class="quickstart-step">
+      <div class="num">3</div>
+      <div>右下の<span class="btn-demo">＋</span>ボタンでラウンドを記録</div>
+    </div>
+  </div>
+</div>
+
+<div class="toc">
+  <div class="toc-title">目次</div>
+  <a href="#login">① ログイン</a>
+  <a href="#me">② 自分を選ぶ</a>
+  <a href="#round">③ ラウンドを記録する</a>
+  <a href="#ai">④ AIで楽々スコア入力</a>
+  <a href="#photo">⑤ 写真をアップ</a>
+  <a href="#view">⑥ 過去の記録を見る</a>
+  <a href="#ranking">⑦ ランキングを見る</a>
+  <a href="#edit">⑧ 編集・削除する</a>
+  <a href="#theme">⑨ 見た目を変える</a>
+  <a href="#faq">よくある質問</a>
+</div>
+
+<section id="login">
+  <h2><span class="icon">🔑</span>① ログイン</h2>
+  <ol class="step-list">
+    <li>LINEグループで共有されたURLを開く</li>
+    <li>関口さんから連絡された<b>合い言葉</b>を入力</li>
+    <li>「入室」をタップ</li>
+  </ol>
+  <div class="tip">合い言葉は仲間内だけの秘密です。グループ外の人に教えないように！</div>
+</section>
+
+<section id="me">
+  <h2><span class="icon">👤</span>② 自分を選ぶ（初回のみ）</h2>
+  <p>初めてログインすると「あなたは誰ですか？」と聞かれます。</p>
+  <ol class="step-list">
+    <li>メンバーリストから<b>自分の名前</b>をタップ</li>
+    <li>リストに自分がいなければ「<b>＋ 新規メンバーとして自分を追加</b>」</li>
+  </ol>
+  <div class="tip">後で変更したい時は、画面下の<span class="btn-demo ghost">⚙️ 設定</span> → 「自分のアカウント」をタップ</div>
+</section>
+
+<section id="round">
+  <h2><span class="icon">⛳</span>③ ラウンドを記録する</h2>
+  <ol class="step-list">
+    <li>右下の<span class="btn-demo">＋</span>ボタンをタップ</li>
+    <li>日付・天気・コース名を入力</li>
+    <li>参加メンバーを選択（チップをタップ）</li>
+    <li>スコアカードに打数を入力</li>
+    <li>必要なら写真とコメントを追加</li>
+    <li>「<b>記録する</b>」をタップ</li>
+  </ol>
+
+  <h3>入力モードは2種類</h3>
+  <ul>
+    <li><b>18ホール詳細</b>：ホールごとの打数を全部入力（デフォルト）</li>
+    <li><b>OUT/IN合計のみ</b>：紙にOUT/IN合計しかない場合はこちら</li>
+  </ul>
+  <p>スコアカード上部のラジオボタンで切替できます。</p>
+</section>
+
+<section id="ai">
+  <h2><span class="icon">📷</span>④ AIで楽々スコア入力</h2>
+  <p>スコアカードの写真を撮って、AI が自動で読み取ってくれます。</p>
+  <ol class="step-list">
+    <li>新規ラウンド画面の <span class="btn-demo accent">📷 読み取り</span> ボタンをタップ</li>
+    <li>スコアカードの写真を選択（撮影 or アルバムから）</li>
+    <li>5〜15秒待つ → AIが認識した名前と打数が表示される</li>
+    <li>名前のマッチングを確認、間違っていたらドロップダウンで修正</li>
+    <li>「<b>適用してフォームに反映</b>」をタップ</li>
+    <li>スコアカードに自動入力される</li>
+  </ol>
+  <div class="tip">「サトウ」が「佐藤 翔太」さんに紐づくのは、メンバー登録時の「よみがな」「別名」で判別しているからです</div>
+  <div class="warn">未登録の名前は「新規メンバーとして登録」を選んでください</div>
+
+  <h3>名前の修正は後からでもOK</h3>
+  <p>記録した後でも、スコアカードの<b>名前のプルダウン</b>から別メンバーに差し替えできます。</p>
+</section>
+
+<section id="photo">
+  <h2><span class="icon">📸</span>⑤ 写真をアップ</h2>
+  <p>1ラウンドあたり<b>1〜2枚まで</b>「今日の一枚」として記録できます。</p>
+  <ol class="step-list">
+    <li>ラウンド入力画面の「今日の一枚」エリアをタップ</li>
+    <li>カメラ撮影 or アルバムから写真を選ぶ</li>
+    <li>一言キャプション（任意）を入力</li>
+  </ol>
+  <div class="tip">写真をたくさんLINEに送りたい時は<b>LINEグループ</b>へ、思い出に残したい1枚だけここに保存、という使い分けがおすすめ</div>
+
+  <h3>過去の写真を拡大表示</h3>
+  <p>ラウンド詳細画面で写真をタップ → 全画面で大きく表示されます。スマホならピンチでさらに拡大可能。</p>
+</section>
+
+<section id="view">
+  <h2><span class="icon">📅</span>⑥ 過去の記録を見る</h2>
+  <p>下のタブの<span class="btn-demo ghost">⛳ タイムライン</span>で過去ラウンドを一覧表示。</p>
+  <ul>
+    <li>カードをタップ → 詳細画面（全員のスコア・写真・コメント）</li>
+    <li>👑マークがその日のベストスコア</li>
+  </ul>
+</section>
+
+<section id="ranking">
+  <h2><span class="icon">🏆</span>⑦ ランキングを見る</h2>
+  <p>下のタブの<span class="btn-demo ghost">🏆 ランキング</span>で3つの順位表が見られます。</p>
+  <ul>
+    <li><b>平均スコア</b>：累計の平均が良い順</li>
+    <li><b>ベストスコア</b>：自己ベストの少ない順</li>
+    <li><b>参加回数</b>：参加数の多い順</li>
+  </ul>
+  <p>1〜3位は<b>金・銀・銅のメダル</b>で表示。同スコアは並びでタイ扱い（標準順位制）。</p>
+
+  <h3>個人成績</h3>
+  <p>下のタブの<span class="btn-demo ghost">📊 個人成績</span>で、メンバーごとの推移グラフを確認できます。</p>
+</section>
+
+<section id="edit">
+  <h2><span class="icon">✏️</span>⑧ 編集・削除する</h2>
+  <p>タイムラインからラウンドを開いて、右上の<span class="btn-demo ghost">編集</span><span class="btn-demo ghost">削除</span>ボタン。</p>
+  <div class="warn">削除すると元に戻せません。慎重に。</div>
+  <div class="tip">編集中はスコアカードの並びを <b>OUT・IN・計</b> 列タップで並び替え可能（少ない順）</div>
+</section>
+
+<section id="theme">
+  <h2><span class="icon">🎨</span>⑨ 見た目を変える</h2>
+  <p>下のタブの<span class="btn-demo ghost">⚙️ 設定</span> → 「テーマ」から5パターン切替できます。</p>
+  <ul>
+    <li>スポーティーポップ（デフォルト）</li>
+    <li>グリーンクラシック</li>
+    <li>モダンミニマル</li>
+    <li>ネイビー高級感</li>
+    <li>和モダン</li>
+  </ul>
+  <p>テーマはあなたの端末だけに保存されます。他のメンバーには影響しません。</p>
+</section>
+
+<section id="faq">
+  <h2><span class="icon">❓</span>よくある質問</h2>
+
+  <div class="faq-q">写真は何枚までアップできる？</div>
+  <div class="faq-a">1ラウンドあたり最大2枚です。「今日の一枚」を厳選してアップしてください。たくさん送りたい写真はLINEへ。</div>
+
+  <div class="faq-q">スコアを間違えて入力した</div>
+  <div class="faq-a">タイムラインから該当ラウンドを開く → 右上「編集」 → 修正 → 「更新する」</div>
+
+  <div class="faq-q">アプリが古いまま更新されない</div>
+  <div class="faq-a">スマホのブラウザの更新ボタン、またはPCなら <code>Ctrl + Shift + R</code> でハードリロード。それでもダメなら一度ブラウザを完全に閉じて開き直してください。</div>
+
+  <div class="faq-q">自分の名前を選ぶ画面が出ない</div>
+  <div class="faq-a">下タブの「設定」→「自分のアカウント」をタップで切替できます。</div>
+
+  <div class="faq-q">合い言葉を忘れた</div>
+  <div class="faq-a">LINEグループ内の関口さんのメッセージを遡るか、関口さんに直接聞いてください。</div>
+
+  <div class="faq-q">AIの名前マッチングが間違える</div>
+  <div class="faq-a">①「設定」→ メンバー一覧から自分を選択 → よみがな・別名を登録すると認識精度が上がります。②AI読み取り後の画面で手動修正もできます。</div>
+
+  <div class="faq-q">スコアカードがOUT/INの合計しか書いてない</div>
+  <div class="faq-a">入力モードを「OUT/IN合計のみ」に切替してください。OUT・IN・計の3列だけのシンプル表になります。AI読み取りでも自動判別されます。</div>
+
+  <div class="faq-q">複数のラウンドに参加した時の集計は？</div>
+  <div class="faq-a">「ランキング」「個人成績」で自動集計されます。平均は参加した全ラウンドの平均、ベストは自己ベスト、参加回数は累計です。</div>
+
+  <div class="faq-q">スマホでもPCでも使える？</div>
+  <div class="faq-a">スマホ・タブレット・PCどれでも使えます。同じ合い言葉でログインすればデータは全員と共有されます。</div>
+</section>
+
+<div style="text-align: center; color: var(--text-muted); font-size: 12px; margin-top: 24px; padding: 20px;">
+  困った時は関口さんまで📩<br>
+  後継者研修ゴルフ Manual v1.0
+</div>
+
+</div>
+
+</body>
+</html>
