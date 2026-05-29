@@ -464,6 +464,20 @@ a { color: var(--primary); text-decoration: none; }
   color: var(--text);
   padding: 4px 2px;
 }
+.scorecard select.player-swap-select {
+  width: 100%;
+  min-width: 88px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 4px 6px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.scorecard select.player-swap-select:hover { border-color: var(--primary); }
+.scorecard select.player-swap-select:focus { outline: 2px solid var(--primary); outline-offset: -1px; }
 .scorecard input.hole-input:focus {
   outline: 2px solid var(--primary);
   border-radius: 4px;
@@ -1572,18 +1586,26 @@ function renderAddRound() {
     `<span class="weather-chip ${d.weather===w?'selected':''}" data-weather="${w}">${w}</span>`
   ).join('');
 
+  // Build player swap dropdown options for a given current pid
+  const swapOptionsFor = (currentPid) => state.members.map(m => {
+    const taken = d.selectedMembers.includes(m.id) && m.id !== currentPid;
+    return `<option value="${m.id}" ${m.id===currentPid?'selected':''} ${taken?'disabled':''}>${m.name}${taken?'（参加済）':''}</option>`;
+  }).join('');
+
+  const playerCell = (pid) => `<td><select class="player-swap-select" data-current-pid="${pid}" title="このプレイヤーを別の人に差し替え">${swapOptionsFor(pid)}</select></td>`;
+
   const scorecardRows = d.selectedMembers.map(pid => {
     const sc = normalizeScore(d.scores[pid] || {});
     if (d.outInOnly) {
       return `<tr data-player-row="${pid}">
-        <td>${memberName(pid)}</td>
+        ${playerCell(pid)}
         <td><input class="hole-input" data-player="${pid}" data-field="out" type="number" min="0" max="80" value="${sc.out||''}" style="width:64px;"></td>
         <td><input class="hole-input" data-player="${pid}" data-field="in" type="number" min="0" max="80" value="${sc.in||''}" style="width:64px;"></td>
         <td class="total-cell" data-total="${pid}">${sc.total||'-'}</td>
       </tr>`;
     }
     return `<tr data-player-row="${pid}">
-      <td>${memberName(pid)}</td>
+      ${playerCell(pid)}
       ${sc.holes.slice(0,9).map((h,i)=>`<td><input class="hole-input" data-player="${pid}" data-hole="${i}" type="number" min="1" max="15" value="${h||''}"></td>`).join('')}
       <td class="total-cell" data-out="${pid}">${sc.out||'-'}</td>
       ${sc.holes.slice(9,18).map((h,i)=>`<td><input class="hole-input" data-player="${pid}" data-hole="${i+9}" type="number" min="1" max="15" value="${h||''}"></td>`).join('')}
@@ -1663,6 +1685,7 @@ function renderAddRound() {
             <tbody id="draft-scorecard">${scorecardRows}</tbody>
           </table>
         </div>
+        <div class="help-text" style="margin-top:6px;">※ 名前のプルダウンで、スコアはそのまま別メンバーに差し替えられます（AI読み取り後の修正に便利）</div>
       </div>
 
       <div class="form-section">
@@ -1953,6 +1976,29 @@ function attachAddRoundHandlers() {
     radio.onchange = (e) => {
       d.outInOnly = (e.target.value === 'outin');
       // re-render to switch table layout
+      document.getElementById('main-content').innerHTML = renderAddRound();
+      attachHandlers();
+    };
+  });
+
+  // player swap dropdown (change who a row belongs to, keep scores)
+  document.querySelectorAll('.player-swap-select').forEach(sel => {
+    sel.onchange = (e) => {
+      const oldPid = e.target.dataset.currentPid;
+      const newPid = e.target.value;
+      if (!newPid || newPid === oldPid) return;
+      if (d.selectedMembers.includes(newPid)) {
+        alert(`「${memberName(newPid)}」さんは既に参加メンバーに含まれています。\n先にそのメンバーを外してから差し替えてください。`);
+        e.target.value = oldPid;
+        return;
+      }
+      // transfer score data
+      d.scores[newPid] = d.scores[oldPid];
+      delete d.scores[oldPid];
+      // update selectedMembers order preservation
+      const idx = d.selectedMembers.indexOf(oldPid);
+      if (idx >= 0) d.selectedMembers[idx] = newPid;
+      // re-render
       document.getElementById('main-content').innerHTML = renderAddRound();
       attachHandlers();
     };
