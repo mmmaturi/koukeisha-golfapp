@@ -1301,6 +1301,7 @@ let currentView = 'timeline';
 let currentDetailId = null;
 let currentStatsPlayer = null;
 let currentEditMemberId = null;
+let detailSortKey = 'total'; // 'total' | 'out' | 'in' - ascending (lower is better in golf)
 
 function setView(name, opts={}) {
   currentView = name;
@@ -1519,13 +1520,20 @@ function renderDetail() {
   const players = roundParticipants(r);
 
   // Determine if this round is in OUT/IN-only mode (any player with no detailed holes)
-  const normalizedScores = players.map(pid => ({ pid, sc: normalizeScore(r.scores[pid]) }));
-  const allOutInOnly = normalizedScores.length > 0 && normalizedScores.every(({sc}) => isOutInOnly(sc));
+  const normalizedScoresRaw = players.map(pid => ({ pid, sc: normalizeScore(r.scores[pid]) }));
+  const allOutInOnly = normalizedScoresRaw.length > 0 && normalizedScoresRaw.every(({sc}) => isOutInOnly(sc));
+
+  // Sort by selected key ascending (lower = better in golf)
+  const sortKey = detailSortKey;
+  const normalizedScores = normalizedScoresRaw.slice().sort((a, b) => (a.sc[sortKey]||9999) - (b.sc[sortKey]||9999));
+  const sortArrow = (key) => sortKey === key ? '<span style="color:var(--primary); font-size:11px;">↓</span>' : '';
+  const sortableHeader = (key, label) =>
+    `<th data-sort-key="${key}" style="cursor:pointer; ${sortKey===key?'background:var(--primary-bg); color:var(--primary-dark);':''}" title="${label}順に並べ替え（少ない順）">${label}${sortArrow(key)}</th>`;
 
   const scorecard = allOutInOnly
     ? `<div class="scorecard-wrap">
         <table class="scorecard">
-          <thead><tr><th>名前</th><th>OUT</th><th>IN</th><th>計</th></tr></thead>
+          <thead><tr><th>名前</th>${sortableHeader('out','OUT')}${sortableHeader('in','IN')}${sortableHeader('total','計')}</tr></thead>
           <tbody>
             ${normalizedScores.map(({pid, sc}) => `<tr>
               <td>${memberName(pid)}</td>
@@ -1540,7 +1548,7 @@ function renderDetail() {
     : `<div class="scorecard-wrap">
         <table class="scorecard">
           <thead>
-            <tr><th>HOLE</th>${Array.from({length:9},(_,i)=>`<th>${i+1}</th>`).join('')}<th>OUT</th>${Array.from({length:9},(_,i)=>`<th>${i+10}</th>`).join('')}<th>IN</th><th>計</th></tr>
+            <tr><th>HOLE</th>${Array.from({length:9},(_,i)=>`<th>${i+1}</th>`).join('')}${sortableHeader('out','OUT')}${Array.from({length:9},(_,i)=>`<th>${i+10}</th>`).join('')}${sortableHeader('in','IN')}${sortableHeader('total','計')}</tr>
           </thead>
           <tbody>
             ${normalizedScores.map(({pid, sc}) => `<tr>
@@ -1910,6 +1918,14 @@ function attachHandlers() {
       if (!round) return;
       const idx = parseInt(el.dataset.photoIdx) || 0;
       openLightbox(round.photos, idx);
+    };
+  });
+
+  // detail-view scorecard sort
+  document.querySelectorAll('th[data-sort-key]').forEach(th => {
+    th.onclick = () => {
+      detailSortKey = th.dataset.sortKey;
+      render();
     };
   });
 
