@@ -1063,26 +1063,31 @@ function afterDataChange() {
   render();
 }
 
-function promptSelectMe() {
+function promptSelectMe(allowCancel = false) {
   closeOcrOverlay();
   const overlay = document.createElement('div');
   overlay.className = 'ocr-overlay';
   overlay.id = 'ocr-overlay';
+  const isChange = allowCancel && !!state.me;
   overlay.innerHTML = `
     <div class="ocr-modal" style="max-height:80vh;">
-      <h3 style="margin-bottom: 6px; font-size: 17px;">あなたは誰ですか？</h3>
+      <h3 style="margin-bottom: 6px; font-size: 17px;">${isChange ? '自分のアカウントを切替' : 'あなたは誰ですか？'}</h3>
       <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 16px;">
-        スコア入力で「自分のコメント」「自分の参加デフォルト」を設定するため、まずあなた自身を選んでください。
+        ${isChange
+          ? `現在のアカウント：<b>${memberName(state.me)}</b><br>切り替えたいメンバーを選んでください。`
+          : 'スコア入力で「自分のコメント」「自分の参加デフォルト」を設定するため、まずあなた自身を選んでください。'}
       </p>
       <div style="max-height: 50vh; overflow-y: auto; margin-bottom: 12px;">
         ${state.members.map(m => `
-          <button class="btn btn-secondary" data-me-id="${m.id}" style="width:100%; margin-bottom:6px; justify-content:flex-start; padding: 12px 14px;">
+          <button class="btn btn-secondary" data-me-id="${m.id}" style="width:100%; margin-bottom:6px; justify-content:flex-start; padding: 12px 14px; ${m.id===state.me?'border-color: var(--primary); background: var(--primary-bg);':''}">
             <span class="user-avatar" style="width:30px; height:30px; font-size:12px; margin-right:10px;">${m.initial}</span>
             ${m.name}${m.yomi?` <span style="color:var(--text-muted); font-size:11px; margin-left:6px;">${m.yomi}</span>`:''}
+            ${m.id===state.me?'<span style="margin-left:auto; font-size:11px; color: var(--primary-dark);">現在</span>':''}
           </button>
         `).join('')}
       </div>
       <button class="btn btn-ghost" id="add-me-new" style="width:100%;">＋ 新規メンバーとして自分を追加</button>
+      ${allowCancel ? `<button class="btn btn-ghost" id="prompt-cancel" style="width:100%; margin-top:6px; color: var(--text-secondary);">キャンセル</button>` : ''}
     </div>
   `;
   document.body.appendChild(overlay);
@@ -1106,6 +1111,9 @@ function promptSelectMe() {
     overlay.remove();
     afterDataChange();
   };
+  if (allowCancel) {
+    document.getElementById('prompt-cancel').onclick = () => overlay.remove();
+  }
 }
 
 /* =========================================================
@@ -1853,10 +1861,13 @@ function renderSettings() {
 
       <div class="section-heading"><span>自分のアカウント</span></div>
       <div class="member-list">
-        <div class="member-list-row">
+        <div class="member-list-row member-list-row-clickable" id="change-me-row">
           <div class="user-avatar">${memberInitial(state.me)}</div>
-          <div>${memberName(state.me)}</div>
-          <div class="role">変更</div>
+          <div style="flex:1;">
+            <div>${memberName(state.me)}</div>
+            <div style="font-size:11px; color:var(--text-muted);">タップして別のアカウントに切替</div>
+          </div>
+          <div class="role">切替 ›</div>
         </div>
       </div>
 
@@ -1967,6 +1978,10 @@ function attachHandlers() {
   document.querySelectorAll('[data-edit-member]').forEach(el => {
     el.onclick = () => setView('member-edit', { memberId: el.dataset.editMember });
   });
+
+  // change "me" (current user) on settings page
+  const changeMeRow = document.getElementById('change-me-row');
+  if (changeMeRow) changeMeRow.onclick = () => promptSelectMe(true);
 
   // member edit form handlers
   if (currentView === 'member-edit') attachMemberEditHandlers();
